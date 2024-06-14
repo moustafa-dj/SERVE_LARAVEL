@@ -78,8 +78,10 @@
                                                 <input type="file" name="image" id="profileImageInput" style="display: none;">
                                                 <label for="profileImageInput" class="btn btn-primary btn-sm" title="Upload new profile image">
                                                     <i class="bi bi-upload"></i>
-                                                </label>                       
-                                                <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                                                </label>
+                                                @if($admin->image != null)                
+                                                    <a href="#" class="btn btn-danger btn-sm" id="remove_img"><i class="bi bi-trash"></i></a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -167,25 +169,43 @@
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form>
+                                <form method="POST"  action="{{route('admin.profile.update-pass')}}">
+                                    @csrf
                                     <div class="row mb-3">
-                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                        <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                        <input name="password" type="password" class="form-control" id="currentPassword">
+                                            <input name="current_password" type="password" class="form-control
+                                            @error('current_password') is-invalid @enderror" id="currentPassword">
+                                            @error('current_password')
+                                                <span class="invalid-feedback">
+                                                    {{$message}}
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                        <label for="password" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                                            <input name="password" type="password" class="form-control
+                                            @error('password') is-invalid @enderror" id="newPassword">
+                                            @error('password')
+                                                <span class="invalid-feedback">
+                                                    {{$message}}
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                        <label for="password_confirmation" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                                            <input name="password_confirmation" type="password" class="form-control @error('password') is-invalid @enderror" id="renewPassword">
+                                            @error('password')
+                                                <span class="invalid-feedback">
+                                                    {{$message}}
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -202,3 +222,27 @@
         </div>
     </section>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var removeLink = document.getElementById('remove_img');
+        if (removeLink) {
+            removeLink.onclick = function(e) {
+                e.preventDefault();
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status == 200) {
+                        location.reload();
+                    }
+                };
+                request.open(
+                    'POST', 
+                    '{{ route("admin.profile.remove-img") }}', 
+                    true);
+                request.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                request.send();
+            };
+        }
+    });
+</script>
+
+

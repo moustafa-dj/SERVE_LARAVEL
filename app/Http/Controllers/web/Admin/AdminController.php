@@ -5,8 +5,11 @@ namespace App\Http\Controllers\web\Admin;
 use App\Contracts\AdminContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
+use App\Http\Requests\UpdateAdminPassRequest;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+
 
 class AdminController extends Controller
 {
@@ -22,14 +25,15 @@ class AdminController extends Controller
         return view('Admin.layouts.admin');
     }
 
-    public function renderProfile() :Renderable
+    public function renderProfile(): Renderable
     {
         $admin = $this->admin->findById(auth()->user()->id);
 
         return view('Admin.profile.profile' , compact('admin'));
     }
 
-    public function update(AdminRequest $request){
+    public function update(AdminRequest $request): RedirectResponse
+    {
 
         $id = auth()->user()->id;
 
@@ -39,4 +43,29 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
+    public function removeProfileImg(): JsonResponse
+    {
+        $id = auth()->user()->id;
+
+        $admin = $this->admin->findById($id);
+
+        $this->admin->removeImg($admin);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    public function updatePass(UpdateAdminPassRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+
+        $id = auth()->user()->id;
+
+        $this->admin->updatePass($id,$data);
+
+        return redirect()->back();
+    }
+
 }

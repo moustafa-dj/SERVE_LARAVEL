@@ -56,6 +56,7 @@ class FileUploadService{
         if($model->image != null){
             Storage::delete($model->image);
             $model->image = null;
+            $model->save();
         }
     }
 }

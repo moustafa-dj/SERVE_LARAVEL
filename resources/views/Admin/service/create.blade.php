@@ -10,7 +10,12 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputText" name="title">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="inputText" name="title">
+                    @error('title')
+                        <span class="invalid-feedback">
+                            {{$message}}
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-3">
@@ -18,10 +23,15 @@
                 <div class="col-sm-10 ">
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"
+                            <textarea class="form-control @error('description') is-invalid @enderror" placeholder="description" id="floatingTextarea" style="height: 100px;"
                              name="description">
 
                             </textarea>
+                            @error('description')
+                                <span class="invalid-feedback">
+                                    {{$message}}
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -29,23 +39,45 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
                 <div class="col-sm-10">
-                    <input type="number" step="0.01" class="form-control" id="inputText" name="price">
+                    <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" id="inputText" name="price">
+                    @error('price')
+                        <span class="invalid-feedback">
+                            {{$message}}
+                        </span>
+                    @enderror
                 </div>
+                
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Domain</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="domain_id">
-                        @foreach($domains as $domain)
+                    <select class="form-select @error('domain_id') is-invalid @enderror" aria-label="Default select example" name="domain_id">
+                        <option value="" selected>Select a domain</option>
+                        @foreach($domains as $domain) 
                             <option value="{{$domain->id}}">{{$domain->name}}</option>
                         @endforeach
                     </select>
+                    @error('domain_id')
+                        <span class="invalid-feedback">
+                            {{$message}}
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Images</label>
                 <div class="col-sm-10">
-                    <input type="file" step="0.01" class="form-control" id="inputText" name="images[]" multiple>
+                    <input type="file" step="0.01" class="form-control @error('images') is-invalid @enderror" id="inputText" name="images[]" multiple>
+                    @error('images')
+                        <span class="invalid-feedback">
+                            {{$message}}
+                        </span>
+                    @enderror
+                    @error('images.*')
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="text-center">

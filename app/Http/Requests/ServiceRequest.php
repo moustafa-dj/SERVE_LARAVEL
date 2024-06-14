@@ -26,15 +26,17 @@ class ServiceRequest extends FormRequest
             'description' => 'required|string',
             'price' => 'required|numeric|min:1|between:0,99.99',
             'domain_id' => 'required|exists:domains,id',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'images' => 'required',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
         if(in_array($this->method() , ['PUT','PATCH'])){
             $ruls = [
-                'title' => 'nullable|string',
-                'description' => 'nullable|string',
-                'price' => 'nullable|numeric|min:1|between:0,99.99',
-                'domain_id' => 'nullable|exists:domains,id',
-                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'price' => 'required|numeric|min:1|between:0,99.99',
+                'domain_id' => 'required|exists:domains,id',
+                'images' => 'nullable',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ];
         }
 

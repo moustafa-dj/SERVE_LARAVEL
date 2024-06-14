@@ -6,6 +6,7 @@ use App\Contracts\AdminContract;
 use App\Models\Admin;
 use App\Enums\Domain\Status;
 use App\Services\FileUploadService;
+use Illuminate\Support\Facades\Hash;
 
 class AdminRepository implements AdminContract {
 
@@ -61,6 +62,15 @@ class AdminRepository implements AdminContract {
 
     public function removeImg($model){
         $this->upload_service->removeProfileImg($model);
+    }
+
+    public function updatePass($model , $data){
+
+        $admin = $this->findById($model);
+
+        $admin->password = Hash::make($data["password"]);
+        
+        $admin->save();
     }
 
 }

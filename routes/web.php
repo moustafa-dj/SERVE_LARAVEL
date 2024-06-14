@@ -28,7 +28,10 @@ Route::prefix('admin')->group(function(){
 
         Route::prefix('profile')->group(function(){
             Route::get('/profile' , [AdminController::class,'renderProfile'])->name('admin.profile');
-            Route::put('/profile/update' , [AdminController::class , 'update'])->name('admin.profile.update');
+            Route::put('/update' , [AdminController::class , 'update'])->name('admin.profile.update');
+            Route::post('/remove-img' , [AdminController::class , 'removeProfileImg'])->name('admin.profile.remove-img');
+            Route::post('/update-pass' , [AdminController::class , 'updatePass'])->name('admin.profile.update-pass');
+
         });
     });
 });
