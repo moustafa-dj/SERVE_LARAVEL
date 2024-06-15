@@ -24,7 +24,7 @@ class UpdateAdminPassRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'current_password' => 'required|string' , new CurrentPasswordCheck,
+            'current_password' => ['required','string' , new CurrentPasswordCheck],
             'password' => 'required|string|min:8|confirmed',
         ];
 
