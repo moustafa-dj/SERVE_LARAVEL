@@ -34,7 +34,7 @@ class AuthController extends Controller
         }
 
         if(Auth::guard('web')->attempt($credentials)){
-            return redirect()->route('/');
+            return redirect('/');
         }
         return  back()->withErrors([
             'password' => 'The provided password is incorrect.'
@@ -50,14 +50,15 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'name'  => 'required|string|max:255',
-            'email'  => 'required|email',
+            'email'  => 'required|email|unique',
             'password' => 'required|min:6'
         ]);
 
         $client = User::create($data);
+
         if($client){
             Auth::login($client);
-            return redirect();
+            return redirect('/');
         }
         return redirect()->back();
     }
@@ -65,6 +66,7 @@ class AuthController extends Controller
     public function logout(): RedirectResponse
     {
         Auth::guard('web')->logout();
+
         return redirect('/');
     }
 }

@@ -29,6 +29,19 @@
     </li><!-- End Components Nav -->
 
     <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav-client" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person"></i><span>Clients</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav-client" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+                <a href="{{route('admin.clients.index')}}">
+                    <i class="bi bi-circle"></i><span>All clients</span>
+                </a>
+            </li>
+        </ul>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-journal-text"></i><span>Services</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
