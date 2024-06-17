@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\ClientContract;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class ClientRepository implements ClientContract {
 
@@ -32,12 +33,23 @@ class ClientRepository implements ClientContract {
 
     public function update($model , array $data)
     {
+        $client = $this->findById($model);
 
+        $client->update($data);
     }
 
     public function destroy($id)
     {
 
+    }
+
+    public function updatePass($model , $data){
+
+        $client = $this->findById($model);
+
+        $client->password = Hash::make($data["password"]);
+        
+        $client->save();
     }
 
 }

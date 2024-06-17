@@ -53,6 +53,8 @@ Route::prefix('client')->group(function(){
         Route::get('/logout' , [AuthController::class , 'logout'])->name('client.logout');
         Route::prefix('profile')->group(function(){
             Route::get('/' , [ClientClientController::class , 'index'])->name('client.profile');
+            Route::put('/update' , [ClientClientController::class , 'update'])->name('client.profile.update');
+            Route::post('/update-pass' , [ClientClientController::class , 'updatePass'])->name('client.profile.update-pass');
         });
 
     });

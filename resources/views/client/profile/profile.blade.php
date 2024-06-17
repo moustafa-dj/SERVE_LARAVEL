@@ -4,7 +4,6 @@
     .profile{
         margin-top: 100px;
     }
-
 </style>
     <section class="container section profile">
         <div class="row">
@@ -52,12 +51,12 @@
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8"></div>
+                                    <div class="col-lg-9 col-md-8">{{$client->adress}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8"></div>
+                                    <div class="col-lg-9 col-md-8">{{$client->phone}}</div>
                                 </div>
 
                                 <div class="row">
@@ -69,44 +68,28 @@
 
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                 <!-- Profile Edit Form -->
-                                <form action="{{route('admin.profile.update')}}" , method="post"  enctype="multipart/form-data">
+                                <form action="{{route('client.profile.update')}}" , method="post"  enctype="multipart/form-data">
                                     @method('PUT')
 
                                     @csrf
                                     <div class="row mb-3">
-                                        <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <img src="{{asset('admin/assets/img/profile-img.jpg')}}" alt="Profile">
-                                            <div class="pt-2">
-                                                <input type="file" name="image" id="profileImageInput" style="display: none;">
-                                                <label for="profileImageInput" class="btn btn-primary btn-sm" title="Upload new profile image">
-                                                    <i class="bi bi-upload"></i>
-                                                </label>
-                                                @if($client->image != null)                
-                                                    <a href="#" class="btn btn-danger btn-sm" id="remove_img"><i class="bi bi-trash"></i></a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="full_name" type="text" class="form-control" id="fullName" value="{{$client->name}}">
+                                            <input name="name" type="text" class="form-control" id="fullName" value="{{$client->name}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="address" type="text" class="form-control" id="Address" value="">
+                                            <input name="adress" type="text" class="form-control" id="Address" value="{{$client->adress}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone" value="">
+                                            <input name="phone" type="text" class="form-control" id="Phone" value="{{$client->phone}}">
                                         </div>
                                     </div>
 
@@ -164,7 +147,7 @@
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form method="POST"  action="{{route('admin.profile.update-pass')}}" id="pass-update-form">
+                                <form method="POST"  action="{{route('client.profile.update-pass')}}" id="pass-update-form">
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>

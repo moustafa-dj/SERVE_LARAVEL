@@ -4,7 +4,10 @@ namespace App\Http\Controllers\web\Client;
 
 use App\Contracts\ClientContract;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequest;
+use App\Http\Requests\updateClientPassRequest;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -25,11 +28,25 @@ class ClientController extends Controller
         return view('client.profile.profile' , compact('client'));
     }
 
-    public function updatePass(){
+    public function updatePass(updateClientPassRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
 
+        $id = auth()->user()->id;
+
+        $this->client->updatePass($id , $data);
+
+        return redirect()->back();
     }
 
-    public function updateProfile(){
-        
+    public function update(ClientRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+
+        $id = auth()->user()->id;
+
+        $this->client->update($id , $data);
+
+        return redirect()->back();
     }
 }

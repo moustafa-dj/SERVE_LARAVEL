@@ -19,6 +19,7 @@ class ClientController extends Controller
     public function index(): Renderable
     {
         $clients = $this->client->getAll();
+        
         return view('admin.client.index' ,compact('clients'));
     }
 }
