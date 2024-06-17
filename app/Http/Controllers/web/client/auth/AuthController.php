@@ -25,6 +25,7 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only('email','password');
+        
         $user = User::where('email' , $credentials['email'])->first();
 
         if(!$user){
@@ -50,7 +51,7 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'name'  => 'required|string|max:255',
-            'email'  => 'required|email|unique',
+            'email'  => 'required|email|unique:users,email',
             'password' => 'required|min:6'
         ]);
 

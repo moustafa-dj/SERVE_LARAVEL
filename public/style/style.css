@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #f6f9ff;
+    background-color: #fff;
 }
 
 .container {
@@ -217,5 +217,69 @@ body {
 
 .prev:hover, .next:hover {
     background-color: rgba(0, 0, 0, 0.7);
+}
+
+.footer{
+    width: 100%;
+    background-color:#fff;
+    padding: 16px;
+    margin-top: 200px;
+}
+.footer .container .footer-d{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+.footer .container .f-in{
+    width: 25%;
+}
+.footer .container .footer-head h3{
+    text-transform:capitalize;
+    font-size: 20px;
+    padding: 16px 0;
+    color: #313131;
+    line-height: 1.5;
+    font-weight: 700;
+}
+.footer .container .footer-content{
+    margin: 10px 0;
+    padding: 10px 0;
+}
+.footer .container .footer-content ul{
+    list-style: none;
+}
+.footer .container .footer-content ul li{
+    margin-bottom: 7px;
+    color: #313131;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    transition:0.5s ease;
+}
+.footer .container .footer-content .flink{
+    text-decoration: none;
+    color: #313131;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 400;
+    transition:0.5s ease;
+}
+.footer .container .footer-content .flink:hover{
+    color: #4154f1;
+}
+.footer-sub{
+    text-align: center;
+    background-color: #fff;
+    padding: 40px 0;
+    border-top: 1px solid #fff;
+
+}
+.footer-sub p{
+    color: #4154f1;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 400;
 }
 

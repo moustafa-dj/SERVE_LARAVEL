@@ -47,7 +47,25 @@
                 </div>
             </div>
         </nav>
+
             @yield('content')
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-d"> 
+                    <div class="f-in">
+                        <div class="footer-head">
+                        </div>
+                        <div class="footer-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="footer-sub">
+            <div class="container"> 
+                    <p>All rights reserved - 2023 - Ra France</p>
+            </div>
+        </div>
         <script src="js/home.js"></script>
         <script src="{{ asset('admin/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
         <script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

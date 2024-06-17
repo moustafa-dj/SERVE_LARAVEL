@@ -45,7 +45,26 @@
                           @enderror
                         </div>
                       </div>
-
+                      <div class="col-12">
+                          <label for="yourUsername" class="form-label">Phone</label>
+                          <div class="input-group has-validation">
+                              <input type="text" name="phone" 
+                                  class="form-control @error('phone') is-invalid @enderror" id="name" required>
+                              @error('phone')
+                                  <div class="invalid-feedback">{{$message}}.</div>
+                              @enderror
+                          </div>
+                      </div>
+                      <div class="col-12">
+                          <label for="yourUsername" class="form-label">Adress</label>
+                          <div class="input-group has-validation">
+                              <input type="text" name="name" 
+                                  class="form-control @error('adress') is-invalid @enderror" id="adress" required>
+                              @error('adress')
+                                  <div class="invalid-feedback">{{$message}}.</div>
+                              @enderror
+                          </div>
+                      </div>
                       <div class="col-12">
                         <label for="yourPassword" class="form-label">Password</label>
                         <input type="password" name="password" 
@@ -54,7 +73,6 @@
                               <div class="invalid-feedback">{{$message}}.</div>
                           @enderror
                       </div>
-
                       <div class="col-12">
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
