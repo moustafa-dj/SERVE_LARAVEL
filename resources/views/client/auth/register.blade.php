@@ -58,7 +58,7 @@
                       <div class="col-12">
                           <label for="yourUsername" class="form-label">Adress</label>
                           <div class="input-group has-validation">
-                              <input type="text" name="name" 
+                              <input type="text" name="adress" 
                                   class="form-control @error('adress') is-invalid @enderror" id="adress" required>
                               @error('adress')
                                   <div class="invalid-feedback">{{$message}}.</div>

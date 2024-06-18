@@ -58,6 +58,7 @@ class AuthController extends Controller
         $client = User::create($data);
 
         if($client){
+            $client->assignRole('client');
             Auth::login($client);
             return redirect('/');
         }

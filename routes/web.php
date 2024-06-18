@@ -56,7 +56,6 @@ Route::prefix('client')->group(function(){
             Route::put('/update' , [ClientClientController::class , 'update'])->name('client.profile.update');
             Route::post('/update-pass' , [ClientClientController::class , 'updatePass'])->name('client.profile.update-pass');
         });
-
     });
 });
 
