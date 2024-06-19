@@ -9,8 +9,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\DomainRequest;
 use App\Contracts\DomainContract;
+use App\Models\Admin;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
+use App\Http\Middleware\AdminMiddleware;
 
-class DomainController extends Controller
+class DomainController extends Controller implements HasMiddleware
 {
 
     protected DomainContract $domain;
@@ -19,6 +24,30 @@ class DomainController extends Controller
     {
         $this->domain = $domain;
     }
+
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:admin',
+            new Middleware(PermissionMiddleware::using(
+                'view-list-domain'), only:['index']),
+            new Middleware(
+                PermissionMiddleware::class . ':create-domain',
+                ['only' => ['create', 'store']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':edit-domain',
+                ['only' => ['edit', 'update']]
+            ),
+            
+            new Middleware(
+                PermissionMiddleware::class . ':delete-domain',
+                ['only' =>'destroy']
+            ),
+        ];
+    }
+    
     public function index(): Renderable
     {
         $domains = $this->domain->getAll();

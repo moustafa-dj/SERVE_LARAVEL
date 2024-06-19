@@ -185,14 +185,17 @@ return [
     ],
 
     'admin_permissions'=>[
-        'domains'=>[
-            'permissions' => ['create-domain','edit-domain' , 'view-domain','view-list'],
-        ],
-        'domains'=>[
-            'permissions' => ['create-domain','edit-domain' , 'view-domain','view-list'],
+        'domain'=>[
+            'permissions' => ['create','edit' , 'view','view-list'],
         ],
         'profile'=>[
-            'permissions' => ['edit-profile' , 'view-profile','edit-pass'],
+            'permissions' => ['edit' , 'view','edit-pass'],
+        ],
+        'service'=>[
+            'permissions' => ['create','edit' , 'view','view-list'],
+        ],
+        'client'=>[
+            'permissions' => ['view','view-list'],
         ],
     ],
 ];

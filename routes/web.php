@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->group(function(){
-    Route::get('/login' , [AdminAuthController::class , 'index'])->name('login');
+    Route::get('/login' , [AdminAuthController::class , 'index'])->name('admin.login');
     Route::post('/login' , [AdminAuthController::class , 'login'])->name('admin.login-admin');
 
     Route::middleware(['auth:admin'])->group(function(){
@@ -34,7 +34,6 @@ Route::prefix('admin')->group(function(){
             Route::put('/update' , [AdminController::class , 'update'])->name('admin.profile.update');
             Route::post('/remove-img' , [AdminController::class , 'removeProfileImg'])->name('admin.profile.remove-img');
             Route::post('/update-pass' , [AdminController::class , 'updatePass'])->name('admin.profile.update-pass');
-
         });
 
         Route::prefix('clients')->group(function(){
@@ -49,7 +48,7 @@ Route::prefix('client')->group(function(){
     Route::get('/register' , [AuthController::class, 'registerForm'])->name('client.register');
     Route::post('/register' , [AuthController::class, 'register'])->name('client.register');
 
-    Route::middleware(['auth:web'])->group(function(){
+    Route::middleware(['client'])->group(function(){
         Route::get('/logout' , [AuthController::class , 'logout'])->name('client.logout');
         Route::prefix('profile')->group(function(){
             Route::get('/' , [ClientClientController::class , 'index'])->name('client.profile');

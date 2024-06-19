@@ -9,8 +9,11 @@ use App\Http\Requests\ServiceRequest;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class ServiceController extends Controller
+class ServiceController extends Controller implements HasMiddleware
 {
     protected ServiceContract $service;
     protected DomainContract $domain;
@@ -23,7 +26,29 @@ class ServiceController extends Controller
         $this->service = $service;
         $this->domain = $domain;
     }
+    
+    public static function  middleware(): array
+    {
+        return [
+            'role_or_permission:admin',
+            new Middleware(PermissionMiddleware::using(
+                'view-list-service'), only:['index']),
+            new Middleware(
+                PermissionMiddleware::class . ':create-service',
+                ['only' => ['create', 'store']]
+            ),
 
+            new Middleware(
+                PermissionMiddleware::class . ':edit-service',
+                ['only' => ['edit', 'update']]
+            ),
+            
+            new Middleware(
+                PermissionMiddleware::class . ':delete-service',
+                ['only' =>'destroy']
+            ),
+        ];
+    }
     public function index(): Renderable
     {
         $services = $this->service->getAll();

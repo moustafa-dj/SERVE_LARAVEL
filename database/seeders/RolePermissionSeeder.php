@@ -23,11 +23,14 @@ class RolePermissionSeeder extends Seeder
 
         $admin_permissions = config::get('permission.admin_permissions');
 
-        foreach($admin_permissions as $permission){
+        foreach($admin_permissions as $model => $permission ){
 
             foreach($permission['permissions'] as $p){
 
-                $per = Permission::firstOrCreate(['name'=>$p , 'guard_name'=>'admin']);
+                $per = Permission::firstOrCreate(
+                    ['name'=>$p.'-'.$model,
+                    'guard_name'=>'admin'
+                ]);
 
                 $this->command->info('##### permission '.$per->name .' has been created');
 

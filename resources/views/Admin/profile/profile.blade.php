@@ -18,115 +18,122 @@
                     <div class="card-body pt-3">
                         <!-- Bordered Tabs -->
                         <ul class="nav nav-tabs nav-tabs-bordered">
-                            <li class="nav-item">
-                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                            </li>
-
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                            </li>
+                            @can('view-profile')
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                                </li>
+                            @endcan
+                            @can('edit-profile')
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                                </li>
+                            @endcan
 
                             <li class="nav-item">
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
                             </li>
 
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                            </li>
+                            @can('edit-pass-profile')
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                                </li>
+                            @endcan
                         </ul>
                         <div class="tab-content pt-2">
+                            @can('view-profile')
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <h5 class="card-title">About</h5>
+                                    <p class="small fst-italic">{{$admin->about}}.</p>
 
-                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                <h5 class="card-title">About</h5>
-                                <p class="small fst-italic">{{$admin->about}}.</p>
+                                    <h5 class="card-title">Profile Details</h5>
 
-                                <h5 class="card-title">Profile Details</h5>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                        <div class="col-lg-9 col-md-8">{{$admin->full_name}}</div>
+                                    </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                                    <div class="col-lg-9 col-md-8">{{$admin->full_name}}</div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Address</div>
+                                        <div class="col-lg-9 col-md-8">{{$admin->adress}}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Phone</div>
+                                        <div class="col-lg-9 col-md-8">{{$admin->phone}}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">{{$admin->email}}</div>
+                                    </div>
+
                                 </div>
+                            @endcan
+                            @can('edit-profile')
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                    <!-- Profile Edit Form -->
+                                    <form action="{{route('admin.profile.update')}}" , method="post"  enctype="multipart/form-data">
+                                        @method('PUT')
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8">{{$admin->adress}}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8">{{$admin->phone}}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">{{$admin->email}}</div>
-                                </div>
-
-                            </div>
-
-                            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                <!-- Profile Edit Form -->
-                                <form action="{{route('admin.profile.update')}}" , method="post"  enctype="multipart/form-data">
-                                    @method('PUT')
-
-                                    @csrf
-                                    <div class="row mb-3">
-                                        <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <img src="{{asset('admin/assets/img/profile-img.jpg')}}" alt="Profile">
-                                            <div class="pt-2">
-                                                <input type="file" name="image" id="profileImageInput" style="display: none;">
-                                                <label for="profileImageInput" class="btn btn-primary btn-sm" title="Upload new profile image">
-                                                    <i class="bi bi-upload"></i>
-                                                </label>
-                                                @if($admin->image != null)                
-                                                    <a href="#" class="btn btn-danger btn-sm" id="remove_img"><i class="bi bi-trash"></i></a>
-                                                @endif
+                                        @csrf
+                                        <div class="row mb-3">
+                                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <img src="{{asset('admin/assets/img/profile-img.jpg')}}" alt="Profile">
+                                                <div class="pt-2">
+                                                    <input type="file" name="image" id="profileImageInput" style="display: none;">
+                                                    <label for="profileImageInput" class="btn btn-primary btn-sm" title="Upload new profile image">
+                                                        <i class="bi bi-upload"></i>
+                                                    </label>
+                                                    @if($admin->image != null)                
+                                                        <a href="#" class="btn btn-danger btn-sm" id="remove_img"><i class="bi bi-trash"></i></a>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="full_name" type="text" class="form-control" id="fullName" value="{{$admin->full_name}}">
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="full_name" type="text" class="form-control" id="fullName" value="{{$admin->full_name}}">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <textarea name="about" class="form-control" id="about" style="height: 100px">
-                                                {{$admin->about}}.
-                                            </textarea>
+                                        <div class="row mb-3">
+                                            <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <textarea name="about" class="form-control" id="about" style="height: 100px">
+                                                    {{$admin->about}}.
+                                                </textarea>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="address" type="text" class="form-control" id="Address" value="{{$admin->adress}}">
+                                        <div class="row mb-3">
+                                            <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="address" type="text" class="form-control" id="Address" value="{{$admin->adress}}">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone" value="{{$admin->phone}}">
+                                        <div class="row mb-3">
+                                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="phone" type="text" class="form-control" id="Phone" value="{{$admin->phone}}">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="email" type="email" class="form-control" id="Email" value="{{$admin->email}}">
+                                        <div class="row mb-3">
+                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="email" type="email" class="form-control" id="Email" value="{{$admin->email}}">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    </div>
-                                </form><!-- End Profile Edit Form -->
-                            </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form><!-- End Profile Edit Form -->
+                                </div>
+                            @endcan
 
                             <div class="tab-pane fade pt-3" id="profile-settings">
                                 <!-- Settings Form -->
@@ -167,53 +174,55 @@
                                 </form><!-- End settings Form -->
                             </div>
 
-                            <div class="tab-pane fade pt-3" id="profile-change-password">
-                                <!-- Change Password Form -->
-                                <form method="POST"  action="{{route('admin.profile.update-pass')}}" id="pass-update-form">
-                                    @csrf
-                                    <div class="row mb-3">
-                                        <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="current_password" type="password" class="form-control
-                                            @error('current_password') is-invalid @enderror" id="currentPassword">
-                                            @error('current_password')
-                                                <span class="invalid-feedback">
-                                                    {{$message}}
-                                                </span>
-                                            @enderror
+                            @can('edit-pass-profile')
+                                <div class="tab-pane fade pt-3" id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    <form method="POST"  action="{{route('admin.profile.update-pass')}}" id="pass-update-form">
+                                        @csrf
+                                        <div class="row mb-3">
+                                            <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="current_password" type="password" class="form-control
+                                                @error('current_password') is-invalid @enderror" id="currentPassword">
+                                                @error('current_password')
+                                                    <span class="invalid-feedback">
+                                                        {{$message}}
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label for="password" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="password" type="password" class="form-control
-                                            @error('password') is-invalid @enderror" id="newPassword">
-                                            @error('password')
-                                                <span class="invalid-feedback">
-                                                    {{$message}}
-                                                </span>
-                                            @enderror
+                                        <div class="row mb-3">
+                                            <label for="password" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="password" type="password" class="form-control
+                                                @error('password') is-invalid @enderror" id="newPassword">
+                                                @error('password')
+                                                    <span class="invalid-feedback">
+                                                        {{$message}}
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row mb-3">
-                                        <label for="password_confirmation" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="password_confirmation" type="password" class="form-control @error('password') is-invalid @enderror" id="renewPassword">
-                                            @error('password')
-                                                <span class="invalid-feedback">
-                                                    {{$message}}
-                                                </span>
-                                            @enderror
+                                        <div class="row mb-3">
+                                            <label for="password_confirmation" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="password_confirmation" type="password" class="form-control @error('password') is-invalid @enderror" id="renewPassword">
+                                                @error('password')
+                                                    <span class="invalid-feedback">
+                                                        {{$message}}
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Change Password</button>
-                                    </div>
-                                </form><!-- End Change Password Form -->
-                            </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </div>
+                                    </form><!-- End Change Password Form -->
+                                </div>
+                            @endcan
                         </div>
                     </div><!-- End Bordered Tabs -->
 
