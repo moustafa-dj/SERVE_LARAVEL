@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('resume');
             $table->string('password');
+            $table->integer('status')->default(2);
+            $table->foreignId('domain_id')->nullable()->constrained('domains')->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

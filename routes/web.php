@@ -7,6 +7,7 @@ use App\Http\Controllers\web\Admin\DomainController;
 use App\Http\Controllers\web\Admin\ServiceController;
 use App\Http\Controllers\web\client\auth\AuthController;
 use App\Http\Controllers\web\Client\ClientController as ClientClientController;
+use App\Http\Controllers\web\employee\auth\AuthController as ClientAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -56,5 +57,11 @@ Route::prefix('client')->group(function(){
             Route::post('/update-pass' , [ClientClientController::class , 'updatePass'])->name('client.profile.update-pass');
         });
     });
+});
+
+Route::prefix('employee')->group(function(){
+    Route::get('register' ,[ClientAuthController::class , 'registerForm'])->name('employee.register-form');
+    Route::post('/register' ,[ClientAuthController::class , 'register'])->name('employee.register');
+
 });
 

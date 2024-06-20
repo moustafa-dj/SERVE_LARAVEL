@@ -25,4 +25,9 @@ class Domain extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

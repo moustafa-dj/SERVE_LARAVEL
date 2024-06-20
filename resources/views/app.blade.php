@@ -41,7 +41,7 @@
                         @else
                             <li><a href="{{route('client.login')}}">Login</a></li>
                             <li><a href="{{route('client.register')}}">Sign-up</a></li>
-                            <li><a href="{{route('client.login')}}">Become an employee</a></li>
+                            <li><a href="{{route('employee.register')}}">Become an employee</a></li>
                         @endif
                     </ul>
                 </div>
