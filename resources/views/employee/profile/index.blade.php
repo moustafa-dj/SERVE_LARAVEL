@@ -11,9 +11,9 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="" alt="Profile" class="rounded-circle">
-                        <h2>{{$client->name}}</h2>
-                        @foreach($client->roles as $role)
+                    <img src="" alt="Profile" class="rounded-circle">
+                    <h2>{{$employee->name}}</h2>
+                        @foreach($employee->roles as $role)
                             <h3>{{$role->name}}</h3>
                         @endforeach
                     </div>
@@ -48,29 +48,33 @@
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                                    <div class="col-lg-9 col-md-8">{{$client->name}}</div>
+                                    <div class="col-lg-9 col-md-8">{{$employee->username}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8">{{$client->adress}}</div>
+                                    <div class="col-lg-9 col-md-8">{{$employee->adress}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8">{{$client->phone}}</div>
+                                    <div class="col-lg-9 col-md-8">{{$employee->phone}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">{{$client->email}}</div>
+                                    <div class="col-lg-9 col-md-8">{{$employee->email}}</div>
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Domain</div>
+                                    <div class="col-lg-9 col-md-8">{{$employee->domain->name}}</div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Role</div>
                                     <div class="col-lg-9 col-md-8">
-                                        @foreach($client->roles as $role)
-                                            <h1 class="badge bg-info">{{$role->name}}</h1>
+                                        @foreach($employee->roles as $role)
+                                            <h3>{{$role->name}}</h3>
                                         @endforeach
                                     </div>
                                 </div>
@@ -79,35 +83,35 @@
 
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                 <!-- Profile Edit Form -->
-                                <form action="{{route('client.profile.update')}}" , method="post"  enctype="multipart/form-data">
+                                <form action="{{route('employee.profile.update')}}" , method="post"  enctype="multipart/form-data">
                                     @method('PUT')
 
                                     @csrf
                                     <div class="row mb-3">
-                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">User name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="name" type="text" class="form-control" id="fullName" value="{{$client->name}}">
+                                            <input name="username" type="text" class="form-control" id="fullName" value="{{$employee->username}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="adress" type="text" class="form-control" id="Address" value="{{$client->adress}}">
+                                            <input name="adress" type="text" class="form-control" id="Address" value="{{$employee->adress}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone" value="{{$client->phone}}">
+                                            <input name="phone" type="text" class="form-control" id="Phone" value="{{$employee->phone}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="email" type="email" class="form-control" id="Email" value="{{$client->email}}">
+                                            <input name="email" type="email" class="form-control" id="Email" value="{{$employee->email}}">
                                         </div>
                                     </div>
 
@@ -158,7 +162,7 @@
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form method="POST"  action="{{route('client.profile.update-pass')}}" id="pass-update-form">
+                                <form method="POST"  action="{{route('employee.profile.update-pass')}}" id="pass-update-form">
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>

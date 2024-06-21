@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Employee\Status;
+use App\Traits\RoleTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
-class Employee extends Model
+class Employee extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory , HasRoles , RoleTrait;
 
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
         'adress',
@@ -23,7 +27,7 @@ class Employee extends Model
 
     protected $casts = [
         'domain_id' => 'integer',
-        'status'=> Status::class
+        'password' => 'hashed',
     ];
 
     public function domain(): BelongsTo

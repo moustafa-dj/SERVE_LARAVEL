@@ -21,16 +21,17 @@
                     <h5 class="card-title text-center pb-0 fs-4">Become an Employee</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" action = "{{route('employee.register')}}" method = "POST" novalidate id="employee-register">
+                  <form class="row g-3 needs-validation" action = "{{route('employee.register')}}" method = "POST" 
+                    enctype="multipart/form-data">
 
                     @csrf
                     <div class="" id="step1">
                         <div class="col-12 mb-3">
-                            <label for="yourUsername" class="form-label">Name</label>
+                            <label for="yourUsername" class="form-label">Username</label>
                             <div class="input-group has-validation">
-                                <input type="name" name="name" 
-                                    class="form-control @error('name') is-invalid @enderror" id="name" required>
-                                @error('name')
+                                <input type="text" name="username" 
+                                    class="form-control @error('username') is-invalid @enderror" id="username" required>
+                                @error('username')
                                     <div class="invalid-feedback">{{$message}}.</div>
                                 @enderror
                             </div>
@@ -74,7 +75,7 @@
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label">Resume</label>
-                            <input type="file" step="0.01" class="form-control @error('resume') is-invalid @enderror" id="inputText" name="resume">
+                            <input type="file" class="form-control @error('resume') is-invalid @enderror" id="inputText" name="resume">
                             @error('resume')
                                 <span class="invalid-feedback">
                                     {{$message}}
@@ -102,7 +103,8 @@
                         <div class="col-12 mb-3">
                             <label class="form-label">Select</label>
                             <div class="input-group has-validation">
-                                <select class="form-select @error('domain_id') is-invalid @enderror" aria-label="Default select example">
+                                <select class="form-select @error('domain_id') is-invalid @enderror"
+                                 name="domain_id">
                                     <option selected>Select a domain</option>
                                     @foreach($domains as $domain)
                                         <option value="{{$domain->id}}">{{$domain->name}}</option>

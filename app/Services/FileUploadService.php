@@ -59,4 +59,15 @@ class FileUploadService{
             $model->save();
         }
     }
+
+    public function uploadEmployeeResume($data){
+        
+        $file = $data['resume'];
+
+        $file_name = $data['username'].'.'.$file->getClientOriginalExtension();
+
+        $path = $file->storeAs('resumes', $file_name);
+
+        return $path;
+    }
 }

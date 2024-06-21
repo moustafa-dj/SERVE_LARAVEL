@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\web\Admin\auth\AdminAuthController;
 use App\Http\Controllers\web\Admin\AdminController;
 use App\Http\Controllers\web\Admin\ClientController;
@@ -7,12 +8,15 @@ use App\Http\Controllers\web\Admin\DomainController;
 use App\Http\Controllers\web\Admin\ServiceController;
 use App\Http\Controllers\web\client\auth\AuthController;
 use App\Http\Controllers\web\Client\ClientController as ClientClientController;
-use App\Http\Controllers\web\employee\auth\AuthController as ClientAuthController;
+use App\Http\Controllers\web\employee\auth\AuthController as EmployeeAuthController;
+use App\Http\Controllers\web\employee\ProfileContollrt;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/login' , [LoginController::class , 'login'])->name('login');
 
 Route::prefix('admin')->group(function(){
     Route::get('/login' , [AdminAuthController::class , 'index'])->name('admin.login');
@@ -60,8 +64,17 @@ Route::prefix('client')->group(function(){
 });
 
 Route::prefix('employee')->group(function(){
-    Route::get('register' ,[ClientAuthController::class , 'registerForm'])->name('employee.register-form');
-    Route::post('/register' ,[ClientAuthController::class , 'register'])->name('employee.register');
+    Route::get('register' ,[EmployeeAuthController::class , 'registerForm'])->name('employee.register-form');
+    Route::post('/register' ,[EmployeeAuthController::class , 'register'])->name('employee.register');
+
+    Route::middleware(['auth:employee'])->group(function(){
+        Route::get('/logout' , [EmployeeAuthController::class , 'logout'])->name('employee.logout');
+        Route::prefix('profile')->group(function(){
+            Route::get('/' , [ProfileContollrt::class , 'index'])->name('employee.profile');
+            Route::put('/update' , [ProfileContollrt::class , 'update'])->name('employee.profile.update');
+            Route::post('/update-pass' , [ProfileContollrt::class , 'updatePass'])->name('employee.profile.update-pass');
+        });
+    });
 
 });
 

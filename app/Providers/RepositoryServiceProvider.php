@@ -13,7 +13,8 @@ class RepositoryServiceProvider extends ServiceProvider
         \App\Contracts\DomainContract::class => \App\Repositories\DomainRepository::class,
         \App\Contracts\ServiceContract::class => \App\Repositories\ServiceRepository::class,
         \App\Contracts\AdminContract::class => \App\Repositories\AdminRepository::class,
-        \App\Contracts\ClientContract::class => \App\Repositories\ClientRepository::class
+        \App\Contracts\ClientContract::class => \App\Repositories\ClientRepository::class,
+        \App\Contracts\EmployeeContract::class => \App\Repositories\EmployeeRepository::class
     ];
     public function register(): void
     {

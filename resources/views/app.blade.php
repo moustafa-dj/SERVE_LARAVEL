@@ -28,21 +28,32 @@
                         <img src="{{asset('img/menu.png')}}" alt="Menu">
                     </label>
                     <ul id="link-ul">
-                        @if(Auth::check())
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{auth()->user()->name}}
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{route('client.profile')}}">My Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{route('client.logout')}}">Logout</a></li>
-                                </ul>
-                            </li>
-                        @else
-                            <li><a href="{{route('client.login')}}">Login</a></li>
-                            <li><a href="{{route('client.register')}}">Sign-up</a></li>
-                            <li><a href="{{route('employee.register')}}">Become an employee</a></li>
-                        @endif
+                            @if(auth('web')->check())
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{auth()->user()->name}}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="{{route('client.profile')}}">My Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{route('client.logout')}}">Logout</a></li>
+                                    </ul>
+                                </li>
+
+                            @elseif(auth('employee')->check())
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ auth('employee')->user()->username }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="{{route('employee.profile')}}">My Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{route('employee.logout')}}">Logout</a></li>
+                                    </ul>
+                                </li>
+                            @else
+                                <li><a href="{{route('client.login')}}">Login</a></li>
+                                <li><a href="{{route('client.register')}}">Sign-up</a></li>
+                                <li><a href="{{route('employee.register')}}">Become an employee</a></li>
+                            @endif
                     </ul>
                 </div>
             </div>
