@@ -7,7 +7,7 @@ use App\Models\Service;
 use App\Models\ServiceGalery;
 use App\Services\FileUploadService;
 
-class ServiceRepository implements ServiceContract{
+class ServiceRepository extends BaseRepository implements ServiceContract{
 
     protected Service $service;
     protected ServiceGalery $galery;
@@ -18,21 +18,10 @@ class ServiceRepository implements ServiceContract{
         ServiceGalery $galery,
         FileUploadService $uploadService
     ) {
-        $this->service = $service;
         $this->galery = $galery;
         $this->uploadService = $uploadService;
+        parent::__construct($service);
     }
-
-    public function findById($id)
-    {
-        return $this->service->findOrFail($id);
-    }
-
-    public function getAll(){
-        
-        return $this->service->all();
-    }
-    public function findByAttribute(){}
 
     public function create(array $data)
     {
@@ -46,9 +35,9 @@ class ServiceRepository implements ServiceContract{
         return $service;
     }
 
-    public function update($model, array $data)
+    public function update($service, array $data)
     {
-        $service = $this->findById($model->id);
+        $service = $this->findById($service->id);
 
         if(array_key_exists( 'images' , $data)){
             $path = 'files/services';
@@ -60,9 +49,9 @@ class ServiceRepository implements ServiceContract{
         return $service;
     }
 
-    public function destroy($model)
+    public function destroy($service)
     {
-        $service = $this->findById($model);
+        $service = $this->findById($service);
 
         $this->uploadService->removeImages($service);
 

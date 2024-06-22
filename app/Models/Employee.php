@@ -34,4 +34,10 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo(Domain::class);
     }
+
+    public function scopeByStatus($query){
+
+        return $query->where('status' ,2);
+        
+    }
 }

@@ -6,38 +6,27 @@ use App\Contracts\DomainContract;
 use App\Models\Domain;
 use App\Enums\Domain\Status;
 
-class DomainRepository implements DomainContract {
+class DomainRepository extends BaseRepository implements DomainContract {
 
-    protected Domain $model;
+    protected Domain $domain;
 
-    public function __construct(Domain $model)
+    public function __construct(Domain $domain)
     {
-        $this->model = $model;
+        parent::__construct($domain);
     }
-
-    public function findById($id)
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    public function getAll(){
-        
-        return $this->model->all();
-    }
-    public function findByAttribute(){}
 
     public function create(array $data)
     {
         $data["status"] = Status::ACTIVE;
 
-        $domain = $this->model->create($data);
+        $domain = $this->domain->create($data);
 
         return $domain;
     }
 
-    public function update($model , array $data)
+    public function update($domain , array $data)
     {
-        $domain = $this->findById($model);
+        $domain = $this->findById($domain);
 
         $domain->update($data);
 

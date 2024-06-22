@@ -6,34 +6,23 @@ use App\Contracts\ClientContract;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class ClientRepository implements ClientContract {
+class ClientRepository extends BaseRepository implements ClientContract {
 
-    protected User $model;
+    protected User $user;
 
-    public function __construct(User $model)
+    public function __construct(User $user)
     {
-        $this->model = $model;
+        parent::__construct($user);
     }
-
-    public function findById($id)
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    public function getAll(){
-        
-        return $this->model->all();
-    }
-    public function findByAttribute(){}
 
     public function create(array $data)
     {
 
     }
 
-    public function update($model , array $data)
+    public function update($user , array $data)
     {
-        $client = $this->findById($model);
+        $client = $this->findById($user);
 
         $client->update($data);
     }
@@ -43,9 +32,9 @@ class ClientRepository implements ClientContract {
 
     }
 
-    public function updatePass($model , $data){
+    public function updatePass($user , $data){
 
-        $client = $this->findById($model);
+        $client = $this->findById($user);
 
         $client->password = Hash::make($data["password"]);
         

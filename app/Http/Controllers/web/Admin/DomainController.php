@@ -51,6 +51,7 @@ class DomainController extends Controller implements HasMiddleware
     public function index(): Renderable
     {
         $domains = $this->domain->getAll();
+
         return view('admin.domain.index' , compact('domains'));
     }
 
@@ -85,6 +86,7 @@ class DomainController extends Controller implements HasMiddleware
 
         return redirect()->route('domains.index');
     }
+    
     public function show($id){
 
     }

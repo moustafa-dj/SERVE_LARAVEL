@@ -6,34 +6,23 @@ use App\Contracts\EmployeeContract;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Hash;
 
-class EmployeeRepository implements EmployeeContract {
+class EmployeeRepository extends BaseRepository implements EmployeeContract {
 
-    protected Employee $model;
+    protected Employee $employee;
 
-    public function __construct(Employee $model)
+    public function __construct(Employee $employee)
     {
-        $this->model = $model;
+        parent::__construct($employee);
     }
-
-    public function findById($id)
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    public function getAll(){
-        
-        return $this->model->all();
-    }
-    public function findByAttribute(){}
 
     public function create(array $data)
     {
 
     }
 
-    public function update($model , array $data)
+    public function update($employee , array $data)
     {
-        $employee = $this->findById($model);
+        $employee = $this->findById($employee);
 
         $employee->update($data);
     }
@@ -43,9 +32,9 @@ class EmployeeRepository implements EmployeeContract {
 
     }
 
-    public function updatePass($model , $data){
+    public function updatePass($employee , $data){
 
-        $employee = $this->findById($model);
+        $employee = $this->findById($employee);
 
         $employee->password = Hash::make($data["password"]);
         

@@ -6,9 +6,11 @@ use App\Contracts\AdminContract;
 use App\Models\Admin;
 use App\Enums\Domain\Status;
 use App\Services\FileUploadService;
+use App\Traits\FilterTrait;
 use Illuminate\Support\Facades\Hash;
 
-class AdminRepository implements AdminContract {
+class AdminRepository extends BaseRepository implements AdminContract {
+
 
     protected Admin $admin;
     protected FileUploadService $upload_service;
@@ -18,23 +20,8 @@ class AdminRepository implements AdminContract {
         FileUploadService $upload_service
     )
     {
-        $this->admin = $admin;
+        parent::__construct($admin);
         $this->upload_service = $upload_service;
-    }
-
-    public function findById($id)
-    {
-        return $this->admin->findOrFail($id);
-    }
-
-    public function getAll(){
-        
-        return $this->admin->all();
-    }
-
-    public function findByAttribute()
-    {
-        
     }
 
     public function create(array $data)
@@ -61,7 +48,9 @@ class AdminRepository implements AdminContract {
     }
 
     public function removeImg($model){
+
         $this->upload_service->removeProfileImg($model);
+
     }
 
     public function updatePass($model , $data){
