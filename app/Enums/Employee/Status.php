@@ -5,7 +5,10 @@ namespace App\Enums\Employee;
 enum Status: int
 {
     case ACTIVE = 1;
-    case INACTIVE = 2;
+    case PENDING = 2;
+    case INACTIVE = 3;
+    case ACCEPTED = 4;
+    case REFUSED = 5;
 
     public static function values(): array
     {
@@ -19,7 +22,10 @@ enum Status: int
     {
         return [
             self::ACTIVE->value => 'success',
-            self::INACTIVE->value => 'warning'
+            self::INACTIVE->value => 'warning',
+            self::PENDING->value => 'primary',
+            self::REFUSED->value => 'danger',
+            self::ACCEPTED->value => 'info'
         ];
     }
 

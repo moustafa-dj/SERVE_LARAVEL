@@ -68,6 +68,21 @@
         </ul>
     </li><!-- End Forms Nav -->
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#application-nav" data-bs-toggle="collapse" href="#">
+            <i class="ri ri-align-bottom"></i><span>Applications</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="application-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            @can('view-list-service')
+            <li>
+                <a href="{{route('admin.applications.index')}}">
+                    <i class="bi bi-circle"></i><span>All Applications</span>
+                </a>
+            </li>
+            @endcan
+        </ul>
+    </li><!-- End Forms Nav -->
+
 
     <li class="nav-heading">Pages</li>
     @can('view-profile')

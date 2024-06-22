@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\web\Admin\auth\AdminAuthController;
 use App\Http\Controllers\web\Admin\AdminController;
+use App\Http\Controllers\web\Admin\ApplicationController;
 use App\Http\Controllers\web\Admin\ClientController;
 use App\Http\Controllers\web\Admin\DomainController;
 use App\Http\Controllers\web\Admin\ServiceController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\web\client\auth\AuthController;
 use App\Http\Controllers\web\Client\ClientController as ClientClientController;
 use App\Http\Controllers\web\employee\auth\AuthController as EmployeeAuthController;
 use App\Http\Controllers\web\employee\ProfileContollrt;
+use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,6 +45,11 @@ Route::prefix('admin')->group(function(){
 
         Route::prefix('clients')->group(function(){
             Route::get('/index' , [ClientController::class , 'index'])->name('admin.clients.index');
+        });
+
+        Route::prefix('applications')->group(function(){
+            Route::get('/' , [ApplicationController::class , 'index'])->name('admin.applications.index');
+            Route::get('/{id}' , [ApplicationController::class , 'show'])->name('admin.applications.show');
         });
     });
 });
