@@ -10,15 +10,21 @@
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    {{$service->title}}
-                                </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
+                                    <div class="mb-3">
+                                        <strong>Service title</strong> : {{$service->title}}</br>
+                                    </div>
+                                    <div class="mb-3">
                                         <strong>Service domain</strong> : {{$service->domain->name}}</br>
+                                    </div>
+                                    <div class="mb-3">
                                         <strong>Service price</strong> : {{$service->price}}</br>
+                                    </div>
+                                    <div class="mb-3">
                                         <strong>Service description</strong> : {{$service->description}}</br>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +49,7 @@
                                     </h2>
                                     <div id="flush-collapseOne-{{$img->id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
-                                            <img src="{{ $img->img }}" alt="Description of the image">
+                                            <img src="{{ asset('storage/' . $img->img) }}" alt="Description of the image">
                                         </div>
                                     </div>
                                 </div>

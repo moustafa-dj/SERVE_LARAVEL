@@ -20,6 +20,7 @@ class ServiceRepository extends BaseRepository implements ServiceContract{
     ) {
         $this->galery = $galery;
         $this->uploadService = $uploadService;
+        $this->service = $service;
         parent::__construct($service);
     }
 

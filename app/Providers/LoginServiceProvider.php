@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\Strategies\LoginStrategieContract;
+use App\Enums\Employee\Status;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -22,16 +23,18 @@ class LoginServiceProvider extends ServiceProvider
             $requst = $app->make(Request::class);
             
             $user = User::where('email' , $requst->email)->first();
-            if(!$user){
-                $user = Employee::where('email' , $requst->email)->first();
-            }
-            
-            if($user->hasRole('client')){
-                return new ClientLoginStrategie();
-            }
 
-            if($user->hasRole('employee')){
-                return new EmployeeLoginStrategie();
+            $employee = Employee::where('email' , $requst->email)
+            ->where('status' ,'!=', Status::REFUSED)->first();
+
+            if($user){
+                if($user->hasRole('client')){
+                    return new ClientLoginStrategie();
+                }
+            }elseif($employee){
+                if($employee->hasRole('employee')){
+                    return new EmployeeLoginStrategie();
+                }
             }
         });
     }
@@ -42,5 +45,9 @@ class LoginServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    public function validate(){
+        
     }
 }

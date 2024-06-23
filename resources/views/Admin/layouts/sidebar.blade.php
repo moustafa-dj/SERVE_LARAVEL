@@ -83,6 +83,21 @@
         </ul>
     </li><!-- End Forms Nav -->
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#employee-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person"></i><span>Employees</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="employee-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            @can('view-list-service')
+            <li>
+                <a href="{{route('employees.index')}}">
+                    <i class="bi bi-circle"></i><span>All Employess</span>
+                </a>
+            </li>
+            @endcan
+        </ul>
+    </li><!-- End Forms Nav -->
+
 
     <li class="nav-heading">Pages</li>
     @can('view-profile')

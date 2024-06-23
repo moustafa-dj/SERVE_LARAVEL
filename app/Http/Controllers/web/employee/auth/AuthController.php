@@ -38,8 +38,6 @@ class AuthController extends Controller
 
             $employee->assignRole('employee');
 
-            Auth::login($employee);
-
             return redirect('/');
         }
         return redirect()->back();

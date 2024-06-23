@@ -5,7 +5,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Application details</h5>
+                        <h5 class="card-title">employee details</h5>
                         <!-- Default Accordion -->
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
@@ -14,29 +14,29 @@
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <div class="mb-3">
-                                            <strong >Username</strong> : {{$application->username}}</br>
+                                            <strong >Username</strong> : {{$employee->username}}</br>
                                         </div>
                                         <div class="mb-3">
-                                            <strong class="mb-3">application domain</strong> : {{$application->domain->name}}</br>
+                                            <strong class="mb-3">employee domain</strong> : {{$employee->domain->name}}</br>
                                         </div>
                                         <div class="mb-3">
-                                            <strong class="mb-3">application email</strong> : {{$application->email}}</br>
+                                            <strong class="mb-3">employee email</strong> : {{$employee->email}}</br>
                                         </div>
 
                                         <div class="mb-3">
-                                            <strong class="mb-3">application address</strong> : {{$application->adress}}</br>
+                                            <strong class="mb-3">employee address</strong> : {{$employee->adress}}</br>
                                         </div>
                                         <div class="mb-3">
-                                            <strong class="mb-3">application phone</strong> : {{$application->phone}}</br>
+                                            <strong class="mb-3">employee phone</strong> : {{$employee->phone}}</br>
                                         </div>
                                         <div class="mb-3">
-                                            <strong class="mb-3">application status</strong> :
-                                            <span class="badge bg-{{\App\Enums\Employee\Status::color($application->status)}}"><i class="bi bi-check-circle me-1"></i>
-                                                {{\App\Enums\Employee\Status::from($application->status)->name}}
+                                            <strong class="mb-3">employee status</strong> :
+                                            <span class="badge bg-{{\App\Enums\Employee\Status::color($employee->status)}}"><i class="bi bi-check-circle me-1"></i>
+                                                {{\App\Enums\Employee\Status::from($employee->status)->name}}
                                             </span>
                                         </div>
                                         <div class="mb-3">
-                                            <strong class="mb-3">application resume</strong> : <a href="{{route('admin.applications.dawnload-resume' ,$application->id )}}">Dawnload Resume</a></br>
+                                            <strong class="mb-3">employee resume</strong> : <a href="">Dawnload Resume</a></br>
                                         </div>
                                     </div>
                                 </div>
@@ -52,20 +52,14 @@
                         <h5 class="card-title">Actions</h5>
                         <!-- Accordion without outline borders -->
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
-                         @if(\App\Enums\Employee\Status::from($application->status)->name === 'PENDING')
-                            <a href ="{{route('admin.applications.approve',$application->id)}}" class="btn btn-info">
-                                <i class="bi bi-check-circle"></i>
-                                Accept Application
-                            </a>
-                            <a href ="{{route('admin.applications.refuse',$application->id)}}" class="btn btn-danger">
-                                <i class="bi bi-check-circle"></i>
-                                Refuse Application
-                            </a>
-                        @else
-                            <div class="alert alert-warning w-100 text-center">
-                                No actions to perform
-                            </div>
-                        @endif
+                            <form action="{{route('employees.destroy' , [$employee->id])}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-check-circle"></i>
+                                    Delete Employee
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

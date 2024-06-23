@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 use App\Contracts\EmployeeContract;
+use App\Enums\Employee\Status;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeRepository extends BaseRepository implements EmployeeContract {
 
@@ -29,7 +31,9 @@ class EmployeeRepository extends BaseRepository implements EmployeeContract {
 
     public function destroy($id)
     {
+        $employee = $this->findById($id);
 
+        $employee->delete();
     }
 
     public function updatePass($employee , $data){
@@ -40,5 +44,33 @@ class EmployeeRepository extends BaseRepository implements EmployeeContract {
         
         $employee->save();
     }
+
+    public function generateResume($employee){
+
+        $employee = $this->findById($employee);
+
+        $file = Storage::disk('resumes')->path($employee->resume);
+
+        return response()->download($file);
+    }
+
+    public function acceptApplication($employee){
+
+        $employee = $this->findById($employee);
+
+        $employee->status = Status::ACCEPTED;
+
+        $employee->save();
+    }
+
+    public function refuseApplication($employee){
+
+        $employee = $this->findById($employee);
+
+        $employee->status = Status::REFUSED;
+
+        $employee->save();
+    }
+
 
 }

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\web\Admin\auth\AdminAuthController;
 use App\Http\Controllers\web\Admin\AdminController;
 use App\Http\Controllers\web\Admin\ApplicationController;
 use App\Http\Controllers\web\Admin\ClientController;
 use App\Http\Controllers\web\Admin\DomainController;
+use App\Http\Controllers\web\Admin\EmployeeController;
 use App\Http\Controllers\web\Admin\ServiceController;
 use App\Http\Controllers\web\client\auth\AuthController;
 use App\Http\Controllers\web\Client\ClientController as ClientClientController;
@@ -14,9 +16,8 @@ use App\Http\Controllers\web\employee\ProfileContollrt;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/' , [FrontController::class , 'index'])->name('home');
 
 Route::post('/login' , [LoginController::class , 'login'])->name('login');
 
@@ -50,7 +51,20 @@ Route::prefix('admin')->group(function(){
         Route::prefix('applications')->group(function(){
             Route::get('/' , [ApplicationController::class , 'index'])->name('admin.applications.index');
             Route::get('/{id}' , [ApplicationController::class , 'show'])->name('admin.applications.show');
+            Route::get('/resume/{id}' , [ApplicationController::class , 'dawnloadResume'])->name('admin.applications.dawnload-resume');
+            Route::get('/accepte/{id}' , [ApplicationController::class , 'acceptApplication'])->name('admin.applications.approve');
+            Route::get('/refuse/{id}' , [ApplicationController::class , 'refuseApplication'])->name('admin.applications.refuse');
         });
+
+        Route::prefix('employees')->group(function(){
+            // Route::get('/' , [EmployeeController::class , 'index'])->name('admin.employees.index');
+            // Route::get('/{id}' , [EmployeeController::class , 'show'])->name('admin.employees.show');
+            Route::get('/resume/{id}' , [EmployeeController::class , 'dawnloadResume'])->name('admin.employees.dawnload-resume');
+            // Route::get('/accepte/{id}' , [EmployeeController::class , 'acceptApplication'])->name('admin.employees.approve');
+            // Route::get('/refuse/{id}' , [EmployeeController::class , 'refuseApplication'])->name('admin.employees.refuse');
+        });
+
+        Route::resource('employees' , EmployeeController::class);
     });
 });
 

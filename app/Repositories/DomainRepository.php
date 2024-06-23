@@ -12,6 +12,7 @@ class DomainRepository extends BaseRepository implements DomainContract {
 
     public function __construct(Domain $domain)
     {
+        $this->domain = $domain;
         parent::__construct($domain);
     }
 

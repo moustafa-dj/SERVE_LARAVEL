@@ -219,11 +219,42 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.services{
+    background-color: #f0f0f0;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 100px;
+}
+
+.services .service-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.service-content .service{
+    flex: 1 0 18%; /* Allow items to grow and shrink, with a basis of 18% */
+    max-width: 18%; /* Set a maximum width to keep them in line */
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    margin: 10px; /* Add margin for spacing */
+    box-sizing: border-box;
+    background-color: #fff;
+}
+.service-content .img-container{
+    height: 200px;
+}
+.img-container img{
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+}
+
 .footer{
     width: 100%;
     background-color:#fff;
     padding: 16px;
-    margin-top: 200px;
 }
 .footer .container .footer-d{
     width: 100%;

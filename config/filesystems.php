@@ -56,6 +56,27 @@ return [
             'throw' => false,
         ],
 
+        'resumes' => [
+            'driver' => 'local',
+            'root' => storage_path('app/resumes'),
+            'url' => env('APP_URL').'/storage/resumes',
+            'visibility' => 'public',
+        ],
+
+        'files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files'),
+            'url' => env('APP_URL').'/storage/files',
+            'visibility' => 'public',
+        ],
+
+        'services' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files/services'),
+            'url' => env('APP_URL').'/storage/files/services',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

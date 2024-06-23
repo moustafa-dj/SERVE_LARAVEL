@@ -83,6 +83,8 @@ class FileUploadService{
 
         $path = $file->storeAs('resumes', $file_name);
 
+        $path = str_replace('resumes/', '', $path);
+
         return $path;
     }
 }

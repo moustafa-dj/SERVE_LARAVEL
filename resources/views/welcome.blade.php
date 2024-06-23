@@ -28,6 +28,24 @@
             <div class="next">&#10095;</div>
         </div>
     </div>
+    <div class="services">
+        <div class="container">
+            <h3>Services</h3>
+            <div class="service-content">
+                @foreach($services as $service)
+                <div class="service">
+                    <div class="img-container">
+                        <img src="{{asset('admin/assets/img/card.jpg')}}" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{$service->title}}</h5>
+                        <p class="card-text">{{$service->description}}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 @endsection
     
 
