@@ -32,4 +32,9 @@ class Service extends Model
         return $this->hasMany(ServiceGalery::class);
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

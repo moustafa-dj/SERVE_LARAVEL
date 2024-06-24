@@ -229,14 +229,13 @@ body {
 .services .service-content{
     display: flex;
     flex-wrap: wrap;
-    justify-content:flex-start;
+    justify-content:space-between;
     align-items: center;
     gap: 20px;
 }
 
 .service-content .service{
-    flex: 1 0 18%; /* Allow items to grow and shrink, with a basis of 18% */
-    max-width: 18%; /* Set a maximum width to keep them in line */
+    width: 20%; /* Set a maximum width to keep them in line */
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
     margin: 10px; /* Add margin for spacing */
     box-sizing: border-box;

@@ -19,4 +19,11 @@ class FrontController extends Controller
         
         return view('welcome' , compact('services'));
     }
+
+    public function getServiceDetails($id): Renderable
+    {
+        $service = $this->service->findById($id);
+
+        return view('pages.service-details' , compact('service'));
+    }
 }

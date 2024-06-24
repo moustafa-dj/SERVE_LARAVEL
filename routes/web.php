@@ -8,9 +8,13 @@ use App\Http\Controllers\web\Admin\ApplicationController;
 use App\Http\Controllers\web\Admin\ClientController;
 use App\Http\Controllers\web\Admin\DomainController;
 use App\Http\Controllers\web\Admin\EmployeeController;
+use App\Http\Controllers\web\Admin\EquipmentController;
 use App\Http\Controllers\web\Admin\ServiceController;
 use App\Http\Controllers\web\client\auth\AuthController;
 use App\Http\Controllers\web\Client\ClientController as ClientClientController;
+use App\Http\Controllers\web\client\OrderController as ClientOrderController;
+use App\Http\Controllers\web\Admin\OrderController as AdminOrderController;
+
 use App\Http\Controllers\web\employee\auth\AuthController as EmployeeAuthController;
 use App\Http\Controllers\web\employee\ProfileContollrt;
 use Illuminate\Console\Application;
@@ -18,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/' , [FrontController::class , 'index'])->name('home');
+Route::get('/service/{id}' , [FrontController::class , 'getServiceDetails'])->name('service-details');
+
 
 Route::post('/login' , [LoginController::class , 'login'])->name('login');
 
@@ -65,6 +71,13 @@ Route::prefix('admin')->group(function(){
         });
 
         Route::resource('employees' , EmployeeController::class);
+
+        Route::prefix('order')->group(function(){
+            Route::get('/' , [AdminOrderController::class , 'index'])->name('admin.order.index');
+        });
+
+        Route::resource('equipments' , EquipmentController::class);
+
     });
 });
 
@@ -80,6 +93,10 @@ Route::prefix('client')->group(function(){
             Route::get('/' , [ClientClientController::class , 'index'])->name('client.profile');
             Route::put('/update' , [ClientClientController::class , 'update'])->name('client.profile.update');
             Route::post('/update-pass' , [ClientClientController::class , 'updatePass'])->name('client.profile.update-pass');
+        });
+
+        Route::prefix('order')->group(function(){
+            Route::post('/make-order' , [ClientOrderController::class , 'store'])->name('client.order.store');
         });
     });
 });

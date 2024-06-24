@@ -98,6 +98,36 @@
         </ul>
     </li><!-- End Forms Nav -->
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#order-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="order-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            @can('view-list-service')
+            <li>
+                <a href="{{route('admin.order.index')}}">
+                    <i class="bi bi-circle"></i><span>All Orders</span>
+                </a>
+            </li>
+            @endcan
+        </ul>
+    </li><!-- End Forms Nav -->
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#equipment-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person"></i><span>Equipments</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="equipment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            @can('view-list-service')
+            <li>
+                <a href="{{route('equipments.index')}}">
+                    <i class="bi bi-circle"></i><span>All Orders</span>
+                </a>
+            </li>
+            @endcan
+        </ul>
+    </li><!-- End Forms Nav -->
+
 
     <li class="nav-heading">Pages</li>
     @can('view-profile')
