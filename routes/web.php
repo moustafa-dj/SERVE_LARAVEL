@@ -74,6 +74,8 @@ Route::prefix('admin')->group(function(){
 
         Route::prefix('order')->group(function(){
             Route::get('/' , [AdminOrderController::class , 'index'])->name('admin.order.index');
+            Route::get('/{id}' , [AdminOrderController::class , 'show'])->name('admin.order.show');
+            Route::get('/refuse/{id}' , [AdminOrderController::class , 'refuseOrder'])->name('admin.order.refuse');
         });
 
         Route::resource('equipments' , EquipmentController::class);
