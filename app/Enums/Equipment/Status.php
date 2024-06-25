@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums\Employee;
+namespace App\Enums\Equipment;
 
 enum Status: int
 {

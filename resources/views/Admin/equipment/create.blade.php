@@ -5,15 +5,12 @@
         <h5 class="card-title">Equipment Form</h5>
 
         <!-- Horizontal Form -->
-        <form method="post" action="{{ route('equipments.update' , $equipment->id)}}">
+        <form method="post" action="{{ route('equipments.store')}}">
             @csrf
-            @method('PUT')
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" 
-                        class="form-control @error('name') is-invalid @enderror" 
-                            id="inputText" name="name" value="{{$equipment->name}}">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputText" name="name">
                     @error('name')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -24,8 +21,7 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control @error('quantity') is-invalid @enderror" 
-                    id="inputText" name="quantity"  value="{{$equipment->quantity}}">
+                    <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="inputText" name="quantity">
                     @error('quantity')
                         <div class="invalid-feedback">
                             {{$message}}

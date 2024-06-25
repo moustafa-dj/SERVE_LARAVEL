@@ -121,10 +121,16 @@
             @can('view-list-service')
             <li>
                 <a href="{{route('equipments.index')}}">
-                    <i class="bi bi-circle"></i><span>All Orders</span>
+                    <i class="bi bi-circle"></i><span>All Equipments</span>
                 </a>
             </li>
             @endcan
+
+            <li>
+                <a href="{{route('equipments.create')}}">
+                    <i class="bi bi-circle"></i><span>Add Equipment</span>
+                </a>
+            </li>
         </ul>
     </li><!-- End Forms Nav -->
 

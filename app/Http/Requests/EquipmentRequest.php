@@ -11,7 +11,7 @@ class EquipmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,10 @@ class EquipmentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $ruls = [
+            'name' => 'required|string',
+            'quantity' => 'required|integer|min:1',
         ];
+        return $ruls;
     }
 }

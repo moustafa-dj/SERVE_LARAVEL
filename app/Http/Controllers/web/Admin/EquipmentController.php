@@ -55,7 +55,7 @@ class EquipmentController extends Controller
 
         $this->equipment->update($equipment->id , $data);
 
-        return redirect()->route('equipments.show');
+        return redirect()->route('equipments.show' , $equipment->id);
     }
     
     public function show($id): Renderable
