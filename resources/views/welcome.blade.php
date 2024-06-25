@@ -34,11 +34,17 @@
             <div class="service-content">
                 @foreach($services as $service)
                 <div class="service">
+                    @if($service->images->isNotEmpty())
                     <div class="img-container">
-                        <img src="{{asset('admin/assets/img/card.jpg')}}" class="card-img-top" alt="...">
+                        <img src="{{ asset($service->images->first()->img) }}" class="card-img-top" alt="Service Image">
                     </div>
+                    @else
+                        <div class="img-container">
+                            <img src="{{asset('admin/assets/img/card.jpg')}}" class="card-img-top" alt="...">
+                        </div>
+                    @endif
                     <div class="card-body">
-                        <h5 class="card-title">{{$service->title}}</h5>
+                        <a class="card-title" href="{{route('service-details',$service->id)}}">{{$service->title}}</a>
                         <p class="card-text">{{$service->description}}</p>
                     </div>
                 </div>

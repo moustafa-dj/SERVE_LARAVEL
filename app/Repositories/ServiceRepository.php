@@ -38,7 +38,7 @@ class ServiceRepository extends BaseRepository implements ServiceContract{
 
     public function update($service, array $data)
     {
-        $service = $this->findById($service->id);
+        $service = $this->findById($service);
 
         if(array_key_exists( 'images' , $data)){
             $path = 'files/services';

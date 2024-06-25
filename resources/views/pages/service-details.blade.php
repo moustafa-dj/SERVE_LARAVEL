@@ -12,6 +12,12 @@
         background-color: #4154f1;
         color: #fff;
     }
+    .carousel-item{
+        height: 500px;
+    }
+    .carousel-item img{
+        height: 100%;
+    }
 </style>
     <section class="container section profile">
         <div class="row">
@@ -28,18 +34,9 @@
                                     <div class="carousel-inner">
                                         @foreach($service->images as $image)
                                             <div class="carousel-item active">
-                                                <img src="{{asset('$image->img')}}" class="d-block w-100" alt="...">
+                                                <img src="{{asset($image->img)}}" class="d-block w-100" alt="...">
                                             </div>
                                         @endforeach
-                                        <div class="carousel-item active">
-                                            <img src="{{asset('admin/assets/img/slides-1.jpg')}}" class="d-block w-100" alt="...">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img src="{{asset('admin/assets/img/slides-2.jpg')}}" class="d-block w-100" alt="...">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img src="{{asset('admin/assets/img/slides-3.jpg')}}" class="d-block w-100" alt="...">
-                                        </div>
                                     </div>
 
                                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -71,11 +68,6 @@
                             </div>
 
                             <div class="row">
-                                <div class=" label">Address : {{auth()->user()->adress}}</div>
-                                <div class="col-lg-9 col-md-8"></div>
-                            </div>
-
-                            <div class="row">
                                 <div class=" label">Price : {{$service->price}}</div>
                                 <div class="col-lg-9 col-md-8"></div>
                             </div>
@@ -84,10 +76,12 @@
                             <form method="POST"  action="{{route('client.order.store')}}">
                                 @csrf
                                 <div class="mb-3">
-                                    <div class="col-md-8 col-lg-12">
-                                        <input name="client_id" type="hidden" class="form-control"
-                                        value="{{auth()->user()->id}}">
-                                    </div>
+                                    @if(auth()->check())
+                                        <div class="col-md-8 col-lg-12">
+                                            <input name="client_id" type="hidden" class="form-control"
+                                            value="{{auth()->user()->id}}">
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="mb-3">
                                     <div class="col-md-8 col-lg-12">
@@ -97,6 +91,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <div class="col-md-8 col-lg-12">
+                                    @if(auth()->check())
                                         <input name="location" type="hidden" class="form-control
                                         @error('location') is-invalid @enderror"
                                         value="{{auth()->user()->adress}}">
@@ -105,6 +100,7 @@
                                                 {{$message}}
                                             </span>
                                         @enderror
+                                    @endif
                                     </div>
                                 </div>
 

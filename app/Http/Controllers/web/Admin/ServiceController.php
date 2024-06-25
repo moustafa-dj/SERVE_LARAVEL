@@ -43,10 +43,10 @@ class ServiceController extends Controller implements HasMiddleware
                 ['only' => ['edit', 'update']]
             ),
             
-            new Middleware(
-                PermissionMiddleware::class . ':delete-service',
-                ['only' =>'destroy']
-            ),
+            // new Middleware(
+            //     PermissionMiddleware::class . ':delete-service',
+            //     ['only' =>'destroy']
+            // ),
         ];
     }
     public function index(): Renderable
@@ -85,9 +85,7 @@ class ServiceController extends Controller implements HasMiddleware
 
         $data = $request->validated();
 
-        $service = $this->service->findById($id);
-
-        $this->service->update($service , $data);
+        $this->service->update($id , $data);
 
         return redirect()->route('services.index');
 

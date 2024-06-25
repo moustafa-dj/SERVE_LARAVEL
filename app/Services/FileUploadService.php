@@ -4,6 +4,7 @@ namespace App\Services;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Model;
+use Illuminate\Support\Facades\File;
 
 class FileUploadService{
 
@@ -14,9 +15,11 @@ class FileUploadService{
 
             if($file instanceof UploadedFile){
 
-                $img = $file->store($directory);
+                $filename = uniqid() . '_' . trim($file->getClientOriginalName());
 
-                $model->images()->create(['img'=>$img]);
+                $file->move($directory, $filename);
+
+                $model->images()->create(['img' =>$directory . '/' . $filename]);
                 
             }
         }
@@ -28,19 +31,19 @@ class FileUploadService{
     {
         foreach($model->images as $img){
 
-            Storage::delete($img->img);
+            File::delete($img->img);
 
             $img->delete();
 
         }
-         return $this->uploadMulTyImg($files , $directory , $model);
+        return $this->uploadMulTyImg($files , $directory , $model);
     }
 
     public function removeImages($model){
 
         foreach($model->images as $img){
 
-            Storage::delete($img->img);
+            File::delete($img->img);
 
             $img->delete();
 

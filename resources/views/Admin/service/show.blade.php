@@ -1,5 +1,15 @@
 @extends('admin.layouts.main')
 @section('content')
+    <style>
+        .carousel{
+        }
+        .carousel-item{
+            height: 300px;
+        }
+        .carousel-item img{
+            height: 100%;
+        }
+    </style>
     <section class="section">
         <div class="row">
             <div class="col-lg-6">
@@ -38,23 +48,25 @@
                     <div class="card-body">
                         <h5 class="card-title">Service images</h5>
 
-                        <!-- Accordion without outline borders -->
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                            @foreach($service->images as $img)
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{$img->id}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                            Accordion Item #1
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseOne-{{$img->id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <img src="{{ asset('storage/' . $img->img) }}" alt="Description of the image">
-                                        </div>
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @foreach($service->images as $image)
+                                    <div class="carousel-item active">
+                                        <img src="{{asset($image->img)}}" class="d-block w-100" alt="...">
                                     </div>
-                                </div>
-                            @endforeach
-                        </div><!-- End Accordion without outline borders -->
+                                @endforeach
+                            </div>
+
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                            </button>
+
+                        </div>
                     </div>
                 </div>
             </div>
