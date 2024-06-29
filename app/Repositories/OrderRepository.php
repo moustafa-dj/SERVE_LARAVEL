@@ -39,6 +39,15 @@ class OrderRepository extends BaseRepository implements OrderContract {
         $order->delete();
     }
 
+    public function accept($order){
+
+        $order = $this->findById($order);
+
+        $order->status = Status::ACCEPTED;
+
+        $order->save();
+    }
+    
     public function refuse($order){
 
         $order = $this->findById($order);

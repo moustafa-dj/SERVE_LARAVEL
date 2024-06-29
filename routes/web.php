@@ -75,7 +75,9 @@ Route::prefix('admin')->group(function(){
         Route::prefix('order')->group(function(){
             Route::get('/' , [AdminOrderController::class , 'index'])->name('admin.order.index');
             Route::get('/{id}' , [AdminOrderController::class , 'show'])->name('admin.order.show');
+            Route::get('/process/{id}' , [AdminOrderController::class , 'processOrder'])->name('admin.order.process');
             Route::get('/refuse/{id}' , [AdminOrderController::class , 'refuseOrder'])->name('admin.order.refuse');
+            Route::post('/accept/{id}' , [AdminOrderController::class , 'acceptOrder'])->name('admin.order.accept');
         });
 
         Route::resource('equipments' , EquipmentController::class);

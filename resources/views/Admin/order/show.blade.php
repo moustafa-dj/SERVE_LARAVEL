@@ -55,7 +55,7 @@
                         <h5 class="card-title">Order Actions</h5>
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
                             @if(\App\Enums\Order\Status::from($order->status->value)->name === 'PENDING')
-                                <a href ="" class="btn btn-info">
+                                <a  class="btn btn-info" href ="{{route('admin.order.process',$order->id)}}" >
                                     <i class="bi bi-check-circle"></i>
                                     Accept Order
                                 </a>

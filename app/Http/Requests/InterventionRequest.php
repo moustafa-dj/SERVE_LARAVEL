@@ -11,7 +11,7 @@ class InterventionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,14 @@ class InterventionRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules =[
+            'order_id' => 'required|exists:order,id',
+            'employee_id' => 'required|array|min:1',
+            'employee_id,*'=> 'required|exists:employees,id',
+            'equipment_id' => 'required|array|min:1',
+            'equipment_id,*'=> 'required|exists:equipments,id'
         ];
+
+        return $rules;
     }
 }
