@@ -9,6 +9,7 @@ use App\Http\Controllers\web\Admin\ClientController;
 use App\Http\Controllers\web\Admin\DomainController;
 use App\Http\Controllers\web\Admin\EmployeeController;
 use App\Http\Controllers\web\Admin\EquipmentController;
+use App\Http\Controllers\web\Admin\InterventionController;
 use App\Http\Controllers\web\Admin\ServiceController;
 use App\Http\Controllers\web\client\auth\AuthController;
 use App\Http\Controllers\web\Client\ClientController as ClientClientController;
@@ -78,6 +79,13 @@ Route::prefix('admin')->group(function(){
             Route::get('/process/{id}' , [AdminOrderController::class , 'processOrder'])->name('admin.order.process');
             Route::get('/refuse/{id}' , [AdminOrderController::class , 'refuseOrder'])->name('admin.order.refuse');
             Route::post('/accept/{id}' , [AdminOrderController::class , 'acceptOrder'])->name('admin.order.accept');
+        });
+
+        Route::prefix('interventions')->group(function(){
+            Route::get('/' , [InterventionController::class , 'index'])->name('admin.intervention.index');
+            Route::get('/{id}' , [InterventionController::class , 'show'])->name('admin.intervention.show');
+            Route::get('/detach/{id}/employee/{employee_id}/' , [InterventionController::class , 'detachEmployee'])->name('admin.intervention.detach-employee');
+            Route::get('/detach/{id}/equipment/{equipment_id}' , [InterventionController::class , 'detachEquipment'])->name('admin.intervention.detach-equipment');
         });
 
         Route::resource('equipments' , EquipmentController::class);

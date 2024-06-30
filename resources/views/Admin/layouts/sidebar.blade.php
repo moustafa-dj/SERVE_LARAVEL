@@ -13,7 +13,7 @@
     <li class="nav-item">
         @can('view-list-domain')
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Domains</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="ri-sticky-note-fill"></i><span>Domains</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 @can('create-domain')
@@ -34,7 +34,7 @@
     @can('view-list-client')
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav-client" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-person"></i><span>Clients</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="ri-user-2-fill"></i><span>Clients</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav-client" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
@@ -48,7 +48,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-journal-text"></i><span>Services</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="ri-shopping-cart-fill"></i><span>Services</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             @can('create-service')
@@ -85,7 +85,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#employee-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-person"></i><span>Employees</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="ri-user-follow-line"></i><span>Employees</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="employee-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             @can('view-list-service')
@@ -100,7 +100,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#order-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-person"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="ri-clapperboard-line"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="order-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             @can('view-list-service')
@@ -114,8 +114,23 @@
     </li><!-- End Forms Nav -->
 
     <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#intervention-nav" data-bs-toggle="collapse" href="#">
+            <i class="ri-dashboard-line"></i><span>Interventions</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="intervention-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            @can('view-list-service')
+            <li>
+                <a href="{{route('admin.intervention.index')}}">
+                    <i class="bi bi-circle"></i><span>All Inteventions</span>
+                </a>
+            </li>
+            @endcan
+        </ul>
+    </li><!-- End Forms Nav -->
+
+    <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#equipment-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-person"></i><span>Equipments</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="ri-tools-fill"></i><span>Equipments</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="equipment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             @can('view-list-service')

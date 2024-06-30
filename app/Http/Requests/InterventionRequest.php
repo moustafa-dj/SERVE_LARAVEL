@@ -21,8 +21,7 @@ class InterventionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules =[
-            'order_id' => 'required|exists:order,id',
+        $rules = [
             'employee_id' => 'required|array|min:1',
             'employee_id,*'=> 'required|exists:employees,id',
             'equipment_id' => 'required|array|min:1',

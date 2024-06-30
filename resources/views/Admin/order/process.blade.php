@@ -11,7 +11,7 @@
                 <label class="col-sm-2 col-form-label">Employees</label>
                 <div class="col-sm-10">
                 <select class="form-select @error('employee_id') is-invalid @enderror" multiple name="employee_id[]">
-                    <option selected>Select the employees</option>
+                    <option>Select the employees</option>
                     @foreach($employees as $employee)
                         <option value="{{$employee->id}}">{{$employee->username}}</option>
                     @endforeach
@@ -27,7 +27,7 @@
                 <label class="col-sm-2 col-form-label">Equipments</label>
                 <div class="col-sm-10">
                 <select class="form-select @error('equipment_id') is-invalid @enderror" multiple name="equipment_id[]">
-                    <option selected>Select equipments</option>
+                    <option>Select equipments</option>
                     @foreach($equipments as $equipment)
                         <option value="{{$equipment->id}}">{{$equipment->name}}</option>
                     @endforeach

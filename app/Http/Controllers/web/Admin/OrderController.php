@@ -67,6 +67,8 @@ class OrderController extends Controller
 
         $this->order->accept($id);
 
+        $data['order_id'] = $id;
+
         $this->intervention->create($data);
 
         return redirect()->back();
