@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Strategies\LoginStrategieContract;
+use App\Services\Strategies\LoginStrategieContext;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    protected LoginStrategieContract $loginStrategie;
+    protected LoginStrategieContext $loginStrategie;
 
-    public function __construct(LoginStrategieContract $loginStrategie) {
+    public function __construct(LoginStrategieContext $loginStrategie) {
         $this->loginStrategie = $loginStrategie;
     }
 

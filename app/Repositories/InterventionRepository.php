@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\InterventionContract;
+use App\Enums\Intervention\Status;
 use App\Models\Employee;
 use App\Models\Intervention;
 
@@ -64,6 +65,15 @@ class InterventionRepository extends BaseRepository implements InterventionContr
         $intervention = $this->findById($intervention_id);
 
         $intervention->equipments()->detach($equipment_id);
+    }
+
+    public function confirm($id)
+    {
+        $intervention = $this->findById($id);
+
+        $intervention->status = Status::IN_PROGRESS;
+
+        $intervention->save();
     }
 
 }

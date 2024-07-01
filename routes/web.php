@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/' , [FrontController::class , 'index'])->name('home');
-Route::get('/service/{id}' , [FrontController::class , 'getServiceDetails'])->name('service-details');
+Route::get('/service/{id}' , [FrontController::class , 'getServiceDetails'])->middleware('login')->name('service-details');
 
 
 Route::post('/login' , [LoginController::class , 'login'])->name('login');
@@ -86,6 +86,7 @@ Route::prefix('admin')->group(function(){
             Route::get('/{id}' , [InterventionController::class , 'show'])->name('admin.intervention.show');
             Route::get('/detach/{id}/employee/{employee_id}/' , [InterventionController::class , 'detachEmployee'])->name('admin.intervention.detach-employee');
             Route::get('/detach/{id}/equipment/{equipment_id}' , [InterventionController::class , 'detachEquipment'])->name('admin.intervention.detach-equipment');
+            Route::get('/confirm/{id}' , [InterventionController::class , 'confirmIntervention'])->name('admin.intervention.confirm');
         });
 
         Route::resource('equipments' , EquipmentController::class);

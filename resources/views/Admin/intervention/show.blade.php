@@ -52,6 +52,11 @@
                         <h5 class="card-title">Intervention Actions</h5>
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
                             @if(\App\Enums\Intervention\Status::from($intervention->status->value)->name === 'PENDING')
+                                <a href ="{{route('admin.intervention.confirm',$intervention->id)}}" class="btn btn-info">
+                                    <i class="bi bi-check-circle"></i>
+                                    Lunch Intervention
+                                </a>
+                            @elseif(\App\Enums\Intervention\Status::from($intervention->status->value)->name === 'IN_PROGRESS')
                                 <a href ="" class="btn btn-danger">
                                     <i class="bi bi-check-circle"></i>
                                     Cancele Intervention

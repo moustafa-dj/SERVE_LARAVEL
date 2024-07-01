@@ -31,6 +31,13 @@ class InterventionController extends Controller
         return view('admin.intervention.show' , compact('intervention'));
     }
 
+    public function confirmIntervention($id): RedirectResponse
+    {
+        $this->intervention->confirm($id);
+        
+        return redirect()->back();
+    }
+
     public function detachEmployee($employee_id , $id): RedirectResponse
     {
         $this->intervention->detachEmployee($id,$employee_id);

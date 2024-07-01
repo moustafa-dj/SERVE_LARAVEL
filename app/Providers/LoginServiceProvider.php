@@ -19,24 +19,7 @@ class LoginServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(LoginStrategieContract::class , function($app){
-            $requst = $app->make(Request::class);
-            
-            $user = User::where('email' , $requst->email)->first();
 
-            $employee = Employee::where('email' , $requst->email)
-            ->where('status' ,'!=', Status::REFUSED)->first();
-
-            if($user){
-                if($user->hasRole('client')){
-                    return new ClientLoginStrategie();
-                }
-            }elseif($employee){
-                if($employee->hasRole('employee')){
-                    return new EmployeeLoginStrategie();
-                }
-            }
-        });
     }
 
     /**
