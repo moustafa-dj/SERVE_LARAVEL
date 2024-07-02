@@ -21,21 +21,15 @@ class EmployeeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-
-        ];
-
         if(in_array($this->method(),['PUT','PATCH'])){
             $rules = [
-                'username'  => 'nullable|string|max:255',
-                'email'     => 'nullable|email|unique:employees,email',
-                'password'  => 'nullable|string|min:6',
-                'adress'    => 'nullable|string|max:255',
-                'phone'     => 'nullable|string|max:255',
-                'domain_id' => 'nullable|exists:domains,id',
-                'resume'    => 'nullable|mimes:pdf',
+                'username'  => 'required|string|max:255',
+                'email'     => 'required|email',
+                'adress'    => 'required|string|max:255',
+                'phone'     => 'required|string|max:255',
             ];
         }
+
         return $rules;
     }
 }

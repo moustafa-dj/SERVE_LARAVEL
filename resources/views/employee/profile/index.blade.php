@@ -83,9 +83,8 @@
 
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                 <!-- Profile Edit Form -->
-                                <form action="{{route('employee.profile.update')}}" , method="post"  enctype="multipart/form-data">
+                                <form action="{{route('employee.profile.update')}}" , method="post">
                                     @method('PUT')
-
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">User name</label>
@@ -124,6 +123,7 @@
                             <div class="tab-pane fade pt-3" id="profile-settings">
                                 <!-- Settings Form -->
                                 <form>
+                                    @csrf
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
                                         <div class="col-md-8 col-lg-9">
