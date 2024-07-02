@@ -21,20 +21,27 @@ class LoginController extends Controller
 
         $user = User::where('email',$credentials['email'])->first();
 
-        if(!$user){
+        if($user){
+            if($user->isClient()){
+                if(Auth::guard('web')->attempt($credentials)){
+                    return redirect('/');
+                 }
+            }
+        }else{
             $user = Employee::where('email',$credentials['email'])->first();
-        }
 
-        if($user->isClient()){
-            if(Auth::guard('web')->attempt($credentials)){
-                return redirect('/');
-             }
-        }
+            if($user && $user->isEmployee()){
+                if(Auth::guard('employee')->attempt($credentials)){
+                    return redirect('/');
+                 }
+            }else{
+                return redirect()->back()->withErrors(
+                    [
+                        'error'=> 'the credentials dosn\'t match our records'
+                    ]
+                );
+            }
 
-        if($user->isEmployee()){
-            if(Auth::guard('employee')->attempt($credentials)){
-                return redirect('/');
-             }
         }
         return redirect()->back()->withErrors(['message' => 'Login failed.']);
     }
