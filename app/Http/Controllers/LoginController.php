@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Strategies\LoginStrategieContract;
-use App\Services\Strategies\LoginStrategieContext;
+use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    protected LoginStrategieContext $loginStrategie;
-
-    public function __construct(LoginStrategieContext $loginStrategie) {
-        $this->loginStrategie = $loginStrategie;
-    }
 
     public function login(Request $request){
 
@@ -23,12 +19,23 @@ class LoginController extends Controller
 
         $credentials = $request->only('email','password');
 
-        $user = $this->loginStrategie->login($credentials);
+        $user = User::where('email',$credentials['email'])->first();
 
-        if ($user) {
-            return redirect('/');
+        if(!$user){
+            $user = Employee::where('email',$credentials['email'])->first();
         }
 
+        if($user->isClient()){
+            if(Auth::guard('web')->attempt($credentials)){
+                return redirect('/');
+             }
+        }
+
+        if($user->isEmployee()){
+            if(Auth::guard('employee')->attempt($credentials)){
+                return redirect('/');
+             }
+        }
         return redirect()->back()->withErrors(['message' => 'Login failed.']);
     }
 }

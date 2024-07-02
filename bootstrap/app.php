@@ -20,7 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'client' => \App\Http\Middleware\ClientMiddleware::class,
-            'login'=> \App\Http\Middleware\SetLoginStrategy::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

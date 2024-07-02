@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/' , [FrontController::class , 'index'])->name('home');
-Route::get('/service/{id}' , [FrontController::class , 'getServiceDetails'])->middleware('login')->name('service-details');
+Route::get('/service/{id}' , [FrontController::class , 'getServiceDetails'])->name('service-details');
 
 
 Route::post('/login' , [LoginController::class , 'login'])->name('login');
