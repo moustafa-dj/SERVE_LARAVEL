@@ -25,7 +25,7 @@ class LoginController extends Controller
             if($user->isClient()){
                 if(Auth::guard('web')->attempt($credentials)){
                     return redirect('/');
-                 }
+                }
             }
         }else{
             $user = Employee::where('email',$credentials['email'])->first();
@@ -33,7 +33,7 @@ class LoginController extends Controller
             if($user && $user->isEmployee()){
                 if(Auth::guard('employee')->attempt($credentials)){
                     return redirect('/');
-                 }
+                }
             }else{
                 return redirect()->back()->withErrors(
                     [
