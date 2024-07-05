@@ -87,6 +87,8 @@ Route::prefix('admin')->group(function(){
             Route::get('/detach/{id}/employee/{employee_id}/' , [InterventionController::class , 'detachEmployee'])->name('admin.intervention.detach-employee');
             Route::get('/detach/{id}/equipment/{equipment_id}' , [InterventionController::class , 'detachEquipment'])->name('admin.intervention.detach-equipment');
             Route::get('/confirm/{id}' , [InterventionController::class , 'confirmIntervention'])->name('admin.intervention.confirm');
+            Route::get('/edit/{id}', [InterventionController::class , 'edit'])->name('admin.intervention.edit');
+            Route::post('/{id}', [InterventionController::class , 'update'])->name('admin.intervention.update');
         });
 
         Route::resource('equipments' , EquipmentController::class);

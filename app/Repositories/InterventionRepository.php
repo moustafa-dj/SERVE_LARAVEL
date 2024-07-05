@@ -43,6 +43,14 @@ class InterventionRepository extends BaseRepository implements InterventionContr
 
         $intervention->update($data);
 
+        if(array_key_exists('employee_id' , $data)){
+            $intervention->employees()->sync($data["employee_id"]);
+        }
+
+        if(array_key_exists('equipment_id' , $data)){
+            $intervention->equipments()->sync($data["equipment_id"]);
+        }
+
         return $intervention;
     }
 

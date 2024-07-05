@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\web\Admin;
 
+use App\Contracts\EmployeeContract;
+use App\Contracts\EquipmentContract;
 use App\Contracts\InterventionContract;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InterventionRequest;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,10 +14,18 @@ use Illuminate\Http\Request;
 class InterventionController extends Controller
 {
     protected InterventionContract $intervention;
+    protected EmployeeContract $employee;
+    protected EquipmentContract $equipment;
 
-    public function __construct(InterventionContract $intervention)
+    public function __construct(
+        InterventionContract $intervention,
+        EmployeeContract $employee,
+        EquipmentContract $equipment,
+    )
     {
         $this->intervention = $intervention;
+        $this->employee = $employee;
+        $this->equipment = $equipment;
     }
 
     public function index(): Renderable
@@ -22,6 +33,26 @@ class InterventionController extends Controller
         $interventions = $this->intervention->getAll();
 
         return view('admin.intervention.index',compact('interventions'));
+    }
+
+    public function edit($id) : Renderable
+    {
+        $intervention = $this->intervention->findById($id);
+
+        $employees = $this->employee->getAll();
+
+        $equipments = $this->equipment->getAll();
+
+        return view('admin.intervention.edit' , compact('intervention' , 'employees','equipments'));
+    }
+
+    public function update($id , InterventionRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+
+        $this->intervention->update($id,$data);
+
+        return redirect()->back();
     }
 
     public function show($id): Renderable
