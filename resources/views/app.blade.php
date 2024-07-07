@@ -40,6 +40,7 @@
                                 </li>
 
                             @elseif(auth('employee')->check())
+                                <a class="dropdown-item" href="{{route('employee.intervention.index')}}">My Interventions</a>
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ auth('employee')->user()->username }}

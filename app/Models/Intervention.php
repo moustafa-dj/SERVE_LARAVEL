@@ -23,6 +23,10 @@ class Intervention extends Model
         'status' => Status::class
     ];
 
+    public function scopeByEmployee(){
+        
+    }
+
     public function employees(): BelongsToMany
     {
         return $this->belongsToMany(Employee::class);

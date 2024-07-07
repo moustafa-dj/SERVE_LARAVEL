@@ -17,6 +17,7 @@ use App\Http\Controllers\web\client\OrderController as ClientOrderController;
 use App\Http\Controllers\web\Admin\OrderController as AdminOrderController;
 
 use App\Http\Controllers\web\employee\auth\AuthController as EmployeeAuthController;
+use App\Http\Controllers\web\employee\InterventionController as EmployeeInterventionController;
 use App\Http\Controllers\web\employee\ProfileContollrt;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Route;
@@ -126,6 +127,12 @@ Route::prefix('employee')->group(function(){
             Route::get('/' , [ProfileContollrt::class , 'index'])->name('employee.profile');
             Route::put('/update' , [ProfileContollrt::class , 'update'])->name('employee.profile.update');
             Route::post('/update-pass' , [ProfileContollrt::class , 'updatePass'])->name('employee.profile.update-pass');
+        });
+
+        Route::middleware(['auth:employee'])->group(function(){
+            Route::prefix('interventions')->group(function(){
+                Route::get('/' , [EmployeeInterventionController::class , 'index'])->name('employee.intervention.index');
+            });
         });
     });
 
