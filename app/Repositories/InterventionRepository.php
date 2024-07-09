@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\InterventionContract;
+use App\Enums\Intervention\EmployeeStatus;
 use App\Enums\Intervention\Status;
 use App\Models\Employee;
 use App\Models\Intervention;
@@ -28,6 +29,7 @@ class InterventionRepository extends BaseRepository implements InterventionContr
         $intervention = $this->intervention->create($data);
 
         if(array_key_exists('employee_id' , $data)){
+            $data["employee_status"] = EmployeeStatus::PENDING;
             $intervention->employees()->attach($data["employee_id"]);
         }
 
@@ -82,6 +84,30 @@ class InterventionRepository extends BaseRepository implements InterventionContr
         $intervention->status = Status::IN_PROGRESS;
 
         $intervention->save();
+    }
+
+    public function engage($intervention_id , $employee_id)
+    {
+        $intervention = $this->findById($intervention_id);
+
+        $data["employee_id"] = $employee_id;
+
+        $data['employee_status'] = EmployeeStatus::ENGAGED;
+
+        $intervention->employees()->sync($data["employee_id"]);
+
+    }
+
+    public function decline($intervention_id , $employee_id)
+    {
+        $intervention = $this->findById($intervention_id);
+
+        $data["employee_id"] = $employee_id;
+
+        $data['employee_status'] = EmployeeStatus::DECLINE;
+
+        $intervention->employees()->sync($data["employee_id"]);
+
     }
 
 }

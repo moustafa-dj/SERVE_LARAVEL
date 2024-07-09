@@ -132,6 +132,9 @@ Route::prefix('employee')->group(function(){
         Route::middleware(['auth:employee'])->group(function(){
             Route::prefix('interventions')->group(function(){
                 Route::get('/' , [EmployeeInterventionController::class , 'index'])->name('employee.intervention.index');
+                Route::get('/{id}',[EmployeeInterventionController::class , 'show'])->name('employee.intervention.show');
+                Route::get('/engage/{intervention_id}/employee/{employee_id}' , [EmployeeInterventionController::class , 'engage'])->name('employee.intervention.engage');
+                Route::get('/decline/{intervention_id}/employee/{employee_id}' , [EmployeeInterventionController::class , 'decline'])->name('employee.intervention.decline');
             });
         });
     });

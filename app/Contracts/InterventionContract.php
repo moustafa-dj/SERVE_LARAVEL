@@ -10,5 +10,8 @@ interface InterventionContract extends BaseContract{
 
     public function detachEquipment($equipment_id , $id);
 
+    public function engage($intervention_id , $employee_id);
+
+    public function decline($intervention_id , $employee_id);
 
 }

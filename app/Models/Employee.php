@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Enums\Employee\Status;
 use App\Traits\RoleTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -39,5 +40,11 @@ class Employee extends Authenticatable
 
         return $query->where('status' ,2);
         
+    }
+
+    public function interventions(): BelongsToMany
+    {
+        return $this->belongsToMany(Intervention::class)
+                    ->withPivot(['employee_status']);
     }
 }
