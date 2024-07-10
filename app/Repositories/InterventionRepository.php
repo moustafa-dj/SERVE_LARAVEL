@@ -90,11 +90,9 @@ class InterventionRepository extends BaseRepository implements InterventionContr
     {
         $intervention = $this->findById($intervention_id);
 
-        $data["employee_id"] = $employee_id;
-
         $data['employee_status'] = EmployeeStatus::ENGAGED;
 
-        $intervention->employees()->sync($data["employee_id"]);
+        $intervention->employees()->updateExistingPivot($employee_id,$data);
 
     }
 
@@ -102,11 +100,9 @@ class InterventionRepository extends BaseRepository implements InterventionContr
     {
         $intervention = $this->findById($intervention_id);
 
-        $data["employee_id"] = $employee_id;
-
         $data['employee_status'] = EmployeeStatus::DECLINE;
 
-        $intervention->employees()->sync($data["employee_id"]);
+        $intervention->employees()->updateExistingPivot($employee_id,$data);
 
     }
 

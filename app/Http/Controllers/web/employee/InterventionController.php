@@ -32,15 +32,20 @@ class InterventionController extends Controller
     {
         $intervention = $this->intervention
                         ->withRelations(['employees'])
-                        ->setScope('byEmployee', $id)
                         ->findById($id);
-
         return view('employee.intervention.show',compact('intervention'));
     }
 
     public function engage($intervention_id , $employee_id): RedirectResponse
     {
-        $this->intervention->engage($intervention_id , $employee_id);
+        $this->intervention->engage($employee_id,$intervention_id);
+
+        return redirect()->back();
+    }
+
+    public function decline($intervention_id , $employee_id): RedirectResponse
+    {
+        $this->intervention->decline($employee_id,$intervention_id);
 
         return redirect()->back();
     }

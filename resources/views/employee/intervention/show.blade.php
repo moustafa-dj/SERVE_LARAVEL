@@ -55,26 +55,29 @@
                         <h5 class="card-title">Intervention Actions</h5>
 
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
-                            <span class="badge bg-{{\App\Enums\Intervention\Status::color($intervention->status)}}"><i class="bi bi-check-circle me-1"></i>
-                                
-                            </span>
-                            foreach($intervention->employees as $employee)
-                                <table class="table">
-                                    <body>
-                                        @foreach($intervention->equipments as $equipment)
-                                        <tr>
-                                            <td>{{$employee->username}}</td>
-                                            <td>
-                                            {{\App\Enums\Intervention\EmployeeStatus::from($employee->pivot->employee_status)->name}}
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </body>
-                                </table>
-                            @endforeach
-                            <div class="alert alert-warning w-100 text-center">
-                                No actions to perform
-                            </div>
+                            @if($intervention->employees->contains('id', auth()->user()->id))
+                                @php
+                                    $employee = $intervention->employees->firstWhere('id', auth()->user()->id);
+                                @endphp
+                                @if($employee && \App\Enums\Intervention\EmployeeStatus::from($employee->pivot->employee_status)->name === 'PENDING')
+                                    <a href ="{{route('employee.intervention.engage', [$employee->id,$intervention->id])}}" class="btn btn-info">
+                                        <i class="bi bi-check-circle"></i>
+                                        Engage Intervention
+                                    </a>
+                                    <a href ="{{route('employee.intervention.decline', [$employee->id,$intervention->id])}}" class="btn btn-danger">
+                                        <i class="bi bi-check-circle"></i>
+                                        Decline Intervention
+                                    </a>
+                                @elseif($employee && \App\Enums\Intervention\EmployeeStatus::from($employee->pivot->employee_status)->name === 'ENGAGED')
+                                    <div class="alert alert-info w-100 text-center">
+                                        You engaed in this intervention
+                                    </div> 
+                                @else
+                                    <div class="alert alert-danger w-100 text-center">
+                                        You declined this intervention
+                                    </div> 
+                                @endif
+                            @endif
                         </div>
                     </div>
                 </div>
