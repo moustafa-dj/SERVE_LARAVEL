@@ -113,6 +113,9 @@ Route::prefix('client')->group(function(){
 
         Route::prefix('order')->group(function(){
             Route::post('/make-order' , [ClientOrderController::class , 'store'])->name('client.order.store');
+            Route::get('/',[ClientOrderController::class , 'index'])->name('client.order.index');
+            Route::get('/{id}' , [ClientOrderController::class , 'show'])->name('client.order.show');
+            Route::get('/cancele/{id}' , [ClientOrderController::class , 'canceleOrder'])->name('client.order.cancele');
         });
     });
 });

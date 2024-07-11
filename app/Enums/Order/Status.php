@@ -9,6 +9,8 @@ enum Status: int
     case REFUSED = 3;
     case FINISHED = 4;
     case IN_PROGRESS = 5;
+    case CANCELED = 6;
+
 
     public static function values(): array
     {
@@ -26,6 +28,7 @@ enum Status: int
             self::REFUSED->value => 'danger',
             self::FINISHED->value => 'success',
             self::IN_PROGRESS->value => 'info',
+            self::CANCELED->value => 'secondary',
         ];
     }
 

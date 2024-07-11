@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($employee->interventions as $intervention)
+                    @foreach($interventions as $intervention)
                         <tr>
                             <td>ORDER_{{$intervention->order->id}}</td>
                             <td>

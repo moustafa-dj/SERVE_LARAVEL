@@ -44,7 +44,7 @@ Trait FilterTrait
     {
         $query = $this->model::query()
             ->with($this->relations);
-
+            
         $this->applyScopes($query);
 
         return $query->get();

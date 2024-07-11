@@ -29,6 +29,7 @@
                     </label>
                     <ul id="link-ul">
                             @if(auth('web')->check())
+                                <a class="dropdown-item" href="{{route('client.order.index')}}">My Orders</a>
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{auth()->user()->name}}

@@ -23,9 +23,9 @@ class InterventionController extends Controller
 
     public function index(): Renderable
     {
-        $employee = $this->employee->findById(auth()->user()->id);
+        $interventions = $this->intervention->setScope('ByEmployee',auth()->user()->id)->withRelations(['equipments'])->getAll();
 
-        return view('employee.intervention.index',compact('employee'));
+        return view('employee.intervention.index',compact('interventions'));
     }
 
     public function show($id): Renderable

@@ -57,5 +57,14 @@ class OrderRepository extends BaseRepository implements OrderContract {
         $order->save();
     }
 
+    public function cancele($order){
+
+        $order = $this->findById($order);
+
+        $order->status = Status::CANCELED;
+
+        $order->save();
+    }
+
 
 }
