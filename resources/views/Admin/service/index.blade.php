@@ -33,13 +33,19 @@
                             <td>{{$service->price}}</td>
                             <td>{{$service->domain->name}}</td>
                             <td class="inline-buttons">
-                                <form action="{{ route('services.destroy', [$service->id]) }}" method="POST" class="ml-2">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
-                                </form>
-                                <a href="{{ route('services.edit', [$service->id]) }}" class="btn btn-success ml-2"><i class="bi bi-check-circle"></i></a>
-                                <a href="{{ route('services.show', [$service->id]) }}" class="btn btn-info ml-2"><i class="ri-zoom-in-line"></i></a>
+                                @can('delete-service')
+                                    <form action="{{ route('services.destroy', [$service->id]) }}" method="POST" class="ml-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
+                                    </form>
+                                @endcan
+                                @can('edit-service')
+                                    <a href="{{ route('services.edit', [$service->id]) }}" class="btn btn-success ml-2"><i class="bi bi-check-circle"></i></a>
+                                @endcan
+                                @can('view-service')
+                                    <a href="{{ route('services.show', [$service->id]) }}" class="btn btn-info ml-2"><i class="ri-zoom-in-line"></i></a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

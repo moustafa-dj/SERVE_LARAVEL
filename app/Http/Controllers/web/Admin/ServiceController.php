@@ -31,22 +31,25 @@ class ServiceController extends Controller implements HasMiddleware
     {
         return [
             'role_or_permission:admin',
-            new Middleware(PermissionMiddleware::using(
-                'view-list-service'), only:['index']),
+
             new Middleware(
-                PermissionMiddleware::class . ':create-service',
+                PermissionMiddleware::class . ':view-list',
+                ['only' => ['index']]
+            ),
+            new Middleware(
+                PermissionMiddleware::class . ':create',
                 ['only' => ['create', 'store']]
             ),
 
             new Middleware(
-                PermissionMiddleware::class . ':edit-service',
+                PermissionMiddleware::class . ':edit',
                 ['only' => ['edit', 'update']]
             ),
             
-            // new Middleware(
-            //     PermissionMiddleware::class . ':delete-service',
-            //     ['only' =>'destroy']
-            // ),
+            new Middleware(
+                PermissionMiddleware::class . ':delete',
+                ['only' =>'destroy']
+            ),
         ];
     }
     public function index(): Renderable

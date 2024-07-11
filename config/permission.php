@@ -186,16 +186,31 @@ return [
 
     'admin_permissions'=>[
         'domain'=>[
-            'permissions' => ['create','edit' , 'view','view-list'],
+            'permissions' => ['create','edit' , 'view','view-list','delete'],
         ],
         'profile'=>[
-            'permissions' => ['edit' , 'view','edit-pass'],
+            'permissions' => ['edit' , 'view','edit-pass','remove-img'],
         ],
         'service'=>[
             'permissions' => ['create','edit' , 'view','view-list'],
         ],
         'client'=>[
             'permissions' => ['view','view-list'],
+        ],
+        'application'=>[
+            'permissions' => ['view','view-list','accept','refuse','dawnload-resume'],
+        ],
+        'employee'=>[
+            'permissions' => ['view','view-list','delete'],
+        ],
+        'equipment'=>[
+            'permissions' => ['create','edit' , 'view','view-list','delete'],
+        ],
+        'intervention'=>[
+            'permissions' => ['view','view-list','edit','refuse','cancele','confirm','detach-employee','detach-equipment'],
+        ],
+        'order'=>[
+            'permissions' => ['view','view-list','process','accept','refuse'],
         ],
     ],
 ];

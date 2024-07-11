@@ -37,13 +37,9 @@
                                 </span>
                             </td>
                             <td class="inline-buttons">
-                                <form action="" method="POST" class="ml-2">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
-                                </form>
-                                <a href="" class="btn btn-success ml-2"><i class="bi bi-check-circle"></i></a>
-                                <a href="{{route('admin.order.show', $order->id)}}" class="btn btn-info ml-2"><i class="ri-zoom-in-line"></i></a>
+                                @can('view-order')
+                                    <a href="{{route('admin.order.show', $order->id)}}" class="btn btn-info ml-2"><i class="ri-zoom-in-line"></i></a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

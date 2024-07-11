@@ -35,9 +35,11 @@
                                                 {{\App\Enums\Employee\Status::from($application->status)->name}}
                                             </span>
                                         </div>
-                                        <div class="mb-3">
-                                            <strong class="mb-3">application resume</strong> : <a href="{{route('admin.applications.dawnload-resume' ,$application->id )}}">Dawnload Resume</a></br>
-                                        </div>
+                                        @can('dawnload-resume-application')
+                                            <div class="mb-3">
+                                                <strong class="mb-3">application resume</strong> : <a href="{{route('admin.applications.dawnload-resume' ,$application->id )}}">Dawnload Resume</a></br>
+                                            </div>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -53,14 +55,18 @@
                         <!-- Accordion without outline borders -->
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
                          @if(\App\Enums\Employee\Status::from($application->status)->name === 'PENDING')
-                            <a href ="{{route('admin.applications.approve',$application->id)}}" class="btn btn-info">
-                                <i class="bi bi-check-circle"></i>
-                                Accept Application
-                            </a>
-                            <a href ="{{route('admin.applications.refuse',$application->id)}}" class="btn btn-danger">
-                                <i class="bi bi-check-circle"></i>
-                                Refuse Application
-                            </a>
+                            @can('accept-application')
+                                <a href ="{{route('admin.applications.approve',$application->id)}}" class="btn btn-info">
+                                    <i class="bi bi-check-circle"></i>
+                                    Accept Application
+                                </a>
+                            @endcan
+                            @can('refuse-application')
+                                <a href ="{{route('admin.applications.refuse',$application->id)}}" class="btn btn-danger">
+                                    <i class="bi bi-check-circle"></i>
+                                    Refuse Application
+                                </a>
+                            @endcan
                         @else
                             <div class="alert alert-warning w-100 text-center">
                                 No actions to perform

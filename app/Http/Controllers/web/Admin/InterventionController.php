@@ -7,9 +7,11 @@ use App\Contracts\EquipmentContract;
 use App\Contracts\InterventionContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InterventionRequest;
+use GuzzleHttp\Middleware;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class InterventionController extends Controller
 {
@@ -26,6 +28,40 @@ class InterventionController extends Controller
         $this->intervention = $intervention;
         $this->employee = $employee;
         $this->equipment = $equipment;
+    }
+
+    public static function middleware():array
+    {
+        return [
+            'role_or_permission:admin',
+            new Middleware(PermissionMiddleware::using(
+                'view-list'), only:['index']),
+
+            new Middleware(
+                PermissionMiddleware::class . ':view',
+                ['only' => ['show']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':confirm',
+                ['only' => ['confirmIntervention']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':detach-employee',
+                ['only' => ['detachEmployee']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':detach-equipment',
+                ['only' => ['detachEquipment']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':edit',
+                ['only' => ['edit','update']]
+            ),
+        ];
     }
 
     public function index(): Renderable
@@ -65,6 +101,20 @@ class InterventionController extends Controller
     public function confirmIntervention($id): RedirectResponse
     {
         $this->intervention->confirm($id);
+        
+        return redirect()->back();
+    }
+
+    public function canceleIntervention($id): RedirectResponse
+    {
+        $this->intervention->cancele($id);
+        
+        return redirect()->back();
+    }
+
+    public function refuseIntervention($id): RedirectResponse
+    {
+        $this->intervention->refuse($id);
         
         return redirect()->back();
     }

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\web\Admin;
 use App\Contracts\EmployeeContract;
 use App\Enums\Employee\Status;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Middleware;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class ApplicationController extends Controller
 {
@@ -16,6 +18,35 @@ class ApplicationController extends Controller
     public function __construct(EmployeeContract $employee)
     {
         $this->employee = $employee;
+    }
+
+    public static function middleware():array
+    {
+        return [
+            'role_or_permission:admin',
+            new Middleware(PermissionMiddleware::using(
+                'view-list'), only:['index']),
+
+            new Middleware(
+                PermissionMiddleware::class . ':view',
+                ['only' => ['show']]
+            ),
+            
+            new Middleware(
+                PermissionMiddleware::class . ':dawnload-resume',
+                ['only' =>'dawnloadResume']
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':accept',
+                ['only' =>'acceptApplication']
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':refuse',
+                ['only' =>'refuseApplication']
+            ),
+        ];
     }
 
     public function index(): Renderable

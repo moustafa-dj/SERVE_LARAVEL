@@ -49,7 +49,9 @@ class AdminRepository extends BaseRepository implements AdminContract {
 
     public function removeImg($model){
 
-        $this->upload_service->removeProfileImg($model);
+        $admin = $this->admin->findById($model);
+
+        $this->upload_service->removeProfileImg($admin);
 
     }
 

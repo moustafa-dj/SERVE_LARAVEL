@@ -35,10 +35,11 @@
                         {{\App\Enums\Employee\Status::from($employee->status)->name}}
                       </span>
                     </td>
-                    <td style="display: flex;">
-                      <a href ="{{route('employees.show' , $employee->id)}}" class="btn btn-success"><i class="bi bi-check-circle"></i></a>
-                    </td>
-
+                    @can('view-employee')
+                      <td style="display: flex;">
+                        <a href ="{{route('employees.show' , $employee->id)}}" class="btn btn-success"><i class="bi bi-check-circle"></i></a>
+                      </td>
+                    @endcan
                   </tr>
                 @endforeach
                 

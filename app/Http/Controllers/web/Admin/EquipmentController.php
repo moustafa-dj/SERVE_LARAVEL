@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use App\http\Requests\EquipmentRequest;
+use GuzzleHttp\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class EquipmentController extends Controller
 {
@@ -17,6 +19,35 @@ class EquipmentController extends Controller
     public function __construct(EquipmentContract $equipment)
     {
         $this->equipment = $equipment;
+    }
+
+    public static function middleware():array
+    {
+        return [
+            'role_or_permission:admin',
+            new Middleware(PermissionMiddleware::using(
+                'view-list'), only:['index']),
+
+            new Middleware(
+                PermissionMiddleware::class . ':view',
+                ['only' => ['show']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':create',
+                ['only' => ['create','store']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':edit',
+                ['only' => ['edit','update']]
+            ),
+            
+            new Middleware(
+                PermissionMiddleware::class . ':delete',
+                ['only' =>'destroy']
+            ),
+        ];
     }
 
     public function index(): Renderable

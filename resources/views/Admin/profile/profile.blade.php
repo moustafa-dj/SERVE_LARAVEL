@@ -85,9 +85,11 @@
                                                     <label for="profileImageInput" class="btn btn-primary btn-sm" title="Upload new profile image">
                                                         <i class="bi bi-upload"></i>
                                                     </label>
-                                                    @if($admin->image != null)                
-                                                        <a href="#" class="btn btn-danger btn-sm" id="remove_img"><i class="bi bi-trash"></i></a>
-                                                    @endif
+                                                    @can('remove-img-profile')
+                                                        @if($admin->image != null)                
+                                                            <a href="#" class="btn btn-danger btn-sm" id="remove_img"><i class="bi bi-trash"></i></a>
+                                                        @endif
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>

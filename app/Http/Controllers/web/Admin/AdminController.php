@@ -41,6 +41,11 @@ class AdminController extends Controller implements HasMiddleware
                 PermissionMiddleware::class . ':edit-pass',
                 ['only' =>'updatePass']
             ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':remove-img',
+                ['only' =>'removeProfileImg']
+            ),
         ];
     }
 
@@ -72,9 +77,7 @@ class AdminController extends Controller implements HasMiddleware
     {
         $id = auth()->user()->id;
 
-        $admin = $this->admin->findById($id);
-
-        $this->admin->removeImg($admin);
+        $this->admin->removeImg($id);
 
         return response()->json([
             'success' => true

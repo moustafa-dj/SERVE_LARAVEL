@@ -86,6 +86,24 @@ class InterventionRepository extends BaseRepository implements InterventionContr
         $intervention->save();
     }
 
+    public function cancele($id)
+    {
+        $intervention = $this->findById($id);
+
+        $intervention->status = Status::CANCELED;
+
+        $intervention->save();
+    }
+
+    public function refuse($id)
+    {
+        $intervention = $this->findById($id);
+
+        $intervention->status = Status::REFUSED;
+
+        $intervention->save();
+    }
+
     public function engage($intervention_id , $employee_id)
     {
         $intervention = $this->findById($intervention_id);

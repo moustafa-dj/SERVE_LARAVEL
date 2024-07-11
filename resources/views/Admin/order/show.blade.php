@@ -55,14 +55,18 @@
                         <h5 class="card-title">Order Actions</h5>
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
                             @if(\App\Enums\Order\Status::from($order->status->value)->name === 'PENDING')
-                                <a  class="btn btn-info" href ="{{route('admin.order.process',$order->id)}}" >
-                                    <i class="bi bi-check-circle"></i>
-                                    Accept Order
-                                </a>
-                                <a href ="{{route('admin.order.refuse',$order->id)}}" class="btn btn-danger">
-                                    <i class="bi bi-check-circle"></i>
-                                    Refuse Order
-                                </a>
+                                @can('accept-order')
+                                    <a  class="btn btn-info" href ="{{route('admin.order.process',$order->id)}}" >
+                                        <i class="bi bi-check-circle"></i>
+                                        Accept Order
+                                    </a>
+                                @endcan
+                                @can('refuse-order')
+                                    <a href ="{{route('admin.order.refuse',$order->id)}}" class="btn btn-danger">
+                                        <i class="bi bi-check-circle"></i>
+                                        Refuse Order
+                                    </a>
+                                @endcan
                             @else
                                 <div class="alert alert-warning w-100 text-center">
                                     No actions to perform

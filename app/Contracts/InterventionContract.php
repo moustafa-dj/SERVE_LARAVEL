@@ -14,4 +14,9 @@ interface InterventionContract extends BaseContract{
 
     public function decline($intervention_id , $employee_id);
 
+    public function cancele($id);
+
+    public function refuse($id);
+
+
 }

@@ -36,7 +36,9 @@
                       </span>
                     </td>
                     <td style="display: flex;">
+                      @can('view-application')
                       <a href ="{{route('admin.applications.show' , $application->id)}}" class="btn btn-success"><i class="bi bi-check-circle"></i></a>
+                      @endcan
                     </td>
 
                   </tr>

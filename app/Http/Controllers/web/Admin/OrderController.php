@@ -9,8 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Contracts\OrderContract;
 use App\Http\Requests\InterventionRequest;
 use App\Models\Employee;
+use GuzzleHttp\Middleware;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class OrderController extends Controller
@@ -34,6 +36,35 @@ class OrderController extends Controller
         $this->employee = $employee;
         $this->equipment = $equipment;
         $this->intervention = $intervention;
+    }
+
+        public static function middleware():array
+    {
+        return [
+            'role_or_permission:admin',
+            new Middleware(PermissionMiddleware::using(
+                'view-list'), only:['index']),
+
+            new Middleware(
+                PermissionMiddleware::class . ':view',
+                ['only' => ['show']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':process',
+                ['only' => ['processOrder']]
+            ),
+
+            new Middleware(
+                PermissionMiddleware::class . ':accept',
+                ['only' => ['acceptOrder']]
+            ),
+            
+            new Middleware(
+                PermissionMiddleware::class . ':refuse',
+                ['refuseOrder']
+            ),
+        ];
     }
 
     public function index() : Renderable

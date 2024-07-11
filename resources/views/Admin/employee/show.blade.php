@@ -35,9 +35,6 @@
                                                 {{\App\Enums\Employee\Status::from($employee->status)->name}}
                                             </span>
                                         </div>
-                                        <div class="mb-3">
-                                            <strong class="mb-3">employee resume</strong> : <a href="">Dawnload Resume</a></br>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -52,14 +49,16 @@
                         <h5 class="card-title">Actions</h5>
                         <!-- Accordion without outline borders -->
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
-                            <form action="{{route('employees.destroy' , [$employee->id])}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="bi bi-check-circle"></i>
-                                    Delete Employee
-                                </button>
-                            </form>
+                            @can('delete-employee')
+                                <form action="{{route('employees.destroy' , [$employee->id])}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-check-circle"></i>
+                                        Delete Employee
+                                    </button>
+                                </form>
+                            @endcan
                         </div>
                     </div>
                 </div>

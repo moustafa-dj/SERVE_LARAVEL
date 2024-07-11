@@ -36,13 +36,19 @@
                       </span>
                     </td>
                     <td class="inline-buttons">
-                      <form action="{{route('equipments.destroy' , [$equipment->id])}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
-                      </form>
-                      <a href ="{{route('equipments.edit' , [$equipment->id])}}" class="btn btn-success"><i class="bi bi-check-circle"></i></a>
-                      <a href="{{ route('equipments.show', [$equipment->id]) }}" class="btn btn-info ml-2"><i class="ri-zoom-in-line"></i></a>
+                      @can('delete-equipment')
+                        <form action="{{route('equipments.destroy' , [$equipment->id])}}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
+                        </form>
+                      @endcan
+                      @can('view-equipment')
+                        <a href="{{ route('equipments.show', [$equipment->id]) }}" class="btn btn-info ml-2"><i class="ri-zoom-in-line"></i></a>
+                      @endcan
+                      @can('edit-equipment')
+                        <a href ="{{route('equipments.edit' , [$equipment->id])}}" class="btn btn-success"><i class="bi bi-check-circle"></i></a>
+                      @endcan
                     </td>
                   </tr>
                 @endforeach

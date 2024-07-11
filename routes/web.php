@@ -90,6 +90,10 @@ Route::prefix('admin')->group(function(){
             Route::get('/confirm/{id}' , [InterventionController::class , 'confirmIntervention'])->name('admin.intervention.confirm');
             Route::get('/edit/{id}', [InterventionController::class , 'edit'])->name('admin.intervention.edit');
             Route::post('/{id}', [InterventionController::class , 'update'])->name('admin.intervention.update');
+            Route::get('/cancele/{id}' , [InterventionController::class , 'canceleIntervention'])->name('admin.intervention.cancele');
+            Route::get('/refuse/{id}' , [InterventionController::class , 'refuseIntervention'])->name('admin.intervention.refuse');
+
+
         });
 
         Route::resource('equipments' , EquipmentController::class);

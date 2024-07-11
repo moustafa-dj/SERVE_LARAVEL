@@ -52,15 +52,25 @@
                         <h5 class="card-title">Intervention Actions</h5>
                         <div class="accordion accordion-flush d-flex justify-content-between" id="accordionFlushExample">
                             @if(\App\Enums\Intervention\Status::from($intervention->status->value)->name === 'PENDING')
-                                <a href ="{{route('admin.intervention.confirm',$intervention->id)}}" class="btn btn-info">
-                                    <i class="bi bi-check-circle"></i>
-                                    Lunch Intervention
-                                </a>
+                                @can('confirm-intervention')
+                                    <a href ="{{route('admin.intervention.confirm',$intervention->id)}}" class="btn btn-info">
+                                        <i class="bi bi-check-circle"></i>
+                                        Lunch Intervention
+                                    </a>
+                                @endcan
+                                @can('refuse-intervention')
+                                    <a href ="{{route('admin.intervention.refuse',$intervention->id)}}" class="btn btn-secondary">
+                                        <i class="bi bi-check-circle"></i>
+                                        Refuse Intervention
+                                    </a>
+                                @endcan
                             @elseif(\App\Enums\Intervention\Status::from($intervention->status->value)->name === 'IN_PROGRESS')
-                                <a href ="" class="btn btn-danger">
-                                    <i class="bi bi-check-circle"></i>
-                                    Cancele Intervention
-                                </a>
+                                @can('cancele-intervention')
+                                    <a href ="{{route('admin.intervention.cancele',$intervention->id)}}" class="btn btn-danger">
+                                        <i class="bi bi-check-circle"></i>
+                                        Cancele Intervention
+                                    </a>
+                                @endcan
                             @else
                                 <div class="alert alert-warning w-100 text-center">
                                     No actions to perform
@@ -79,9 +89,11 @@
                                         <tr>
                                             <td>{{$employee->username}}</td>
                                             <td>
-                                                <a href ="{{route('admin.intervention.detach-employee',['employee_id' => $employee->id,$intervention->id])}}" class="btn btn-danger">
-                                                    <i class="bi bi-check-circle"></i>
-                                                </a>
+                                                @can('detach-employee-intervention')
+                                                    <a href ="{{route('admin.intervention.detach-employee',['employee_id' => $employee->id,$intervention->id])}}" class="btn btn-danger">
+                                                        <i class="bi bi-check-circle"></i>
+                                                    </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
@@ -100,9 +112,11 @@
                                     <tr>
                                         <td>{{$equipment->name}}</td>
                                         <td>
-                                            <a href ="{{route('admin.intervention.detach-equipment',['equipment_id' => $equipment->id,$intervention->id])}}" class="btn btn-danger">
-                                                <i class="bi bi-check-circle"></i>
-                                            </a>
+                                            @can('detach-equipment-intervention')
+                                                <a href ="{{route('admin.intervention.detach-equipment',['equipment_id' => $equipment->id,$intervention->id])}}" class="btn btn-danger">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                     @endforeach
