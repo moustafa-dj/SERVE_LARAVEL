@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/' , [FrontController::class , 'index'])->name('home');
 Route::get('/service/{id}' , [FrontController::class , 'getServiceDetails'])->name('service-details');
 
-
+Route::get('/login' , [AuthController::class , 'loginForm'])->name('client.login-form');
 Route::post('/login' , [LoginController::class , 'login'])->name('login');
 
 Route::prefix('admin')->group(function(){
@@ -93,7 +93,6 @@ Route::prefix('admin')->group(function(){
             Route::get('/cancele/{id}' , [InterventionController::class , 'canceleIntervention'])->name('admin.intervention.cancele');
             Route::get('/refuse/{id}' , [InterventionController::class , 'refuseIntervention'])->name('admin.intervention.refuse');
 
-
         });
 
         Route::resource('equipments' , EquipmentController::class);
@@ -102,7 +101,6 @@ Route::prefix('admin')->group(function(){
 });
 
 Route::prefix('client')->group(function(){
-    Route::get('/login' , [AuthController::class , 'loginForm'])->name('client.login-form');
     Route::post('/login' , [AuthController::class , 'login'])->name('client.login');
     Route::get('/register' , [AuthController::class, 'registerForm'])->name('client.register');
     Route::post('/register' , [AuthController::class, 'register'])->name('client.register');
